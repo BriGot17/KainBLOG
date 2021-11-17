@@ -1,0 +1,23 @@
+backend/KainBlog-Backend/HELP.md
+backend/KainBlog-Backend/target/
+backend/KainBlog-Backend/!.mvn/wrapper/maven-wrapper.jar
+backend/KainBlog-Backend/!**/src/main/**/target/
+backend/KainBlog-Backend/!**/src/test/**/target/
+
+### STS ###
+backend/KainBlog-Backend/.apt_generated
+backend/KainBlog-Backend/.classpath
+backend/KainBlog-Backend/.factorypath
+backend/KainBlog-Backend/.project
+backend/KainBlog-Backend/.settings
+backend/KainBlog-Backend/.springBeans
+backend/KainBlog-Backend/.sts4-cache
+
+### IntelliJ IDEA ###
+backend/KainBlog-Backend/.idea
+backend/KainBlog-Backend/*.iws
+backend/KainBlog-Backend/*.iml
+backend/KainBlog-Backend/*.ipr
+
+### VS Code ###
+.vscode/
