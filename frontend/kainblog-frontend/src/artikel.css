@@ -1,0 +1,36 @@
+.artikelContainer{
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid #ececec;
+    border-radius: .7rem;
+    padding-left: 0.5em;
+    width: 100%;
+    height: auto;
+    margin-bottom: 1em;
+}
+.descContainer{
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    text-align: left;
+}
+.artikelHeadline{
+    
+    text-align: left;
+    border-bottom: 1px solid #ececec;
+}
+
+.artikelHeadline h2{
+    height: 1.4em;
+    margin: unset;
+    font-size: 1.7em;
+
+}
+.artikelImage{
+    display: flex;
+    margin: 0.36em;
+}
+.artikelDescription{
+    display: flex;
+}
