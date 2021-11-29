@@ -2,15 +2,18 @@ import './artikel.css';
 
 function Artikel(props){
     return (
-    <div className="artikelContainer">
+        <a href={props.link}>
+            <div className="artikelContainer">
         <div  className="artikelHeadline">
-            <h2>{props.title}</h2>
+            <h2><a href={props.link}> {props.title} </a></h2>
         </div>
         <div className="descContainer">
-            <img src={props.img} className="artikelImage"></img>
             <p className="artikelDescription">{props.desc}</p>
+            <img src={props.img} className="artikelImage"></img>
+            
         </div>
-    </div>)
+    </div></a>
+    )
     
 }
     
