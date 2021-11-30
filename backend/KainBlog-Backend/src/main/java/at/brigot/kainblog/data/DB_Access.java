@@ -37,9 +37,9 @@ public class DB_Access implements CommandLineRunner {
     public void run(String...args) throws Exception{
 
         repository.deleteAll();
-        repository.save(new Article("Test","desc", "hello"));
-        repository.save(new Article("Test2","desc","texting"));
-        repository.save(new Article("Peter","Boss","Yes"));
+        repository.save(new Article("1","Test","desc", "hello"));
+        repository.save(new Article("2","Test2","desc","texting"));
+        repository.save(new Article("3","Peter","Boss","Yes"));
 
         System.out.println(repository.findArticleByTitle("Test"));
         System.out.println(repository.findArticleByTitle("Test2"));

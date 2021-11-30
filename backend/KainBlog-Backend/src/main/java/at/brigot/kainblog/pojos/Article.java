@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Article {
 
+    private String articleId;
     private String title;
     //Autor
     //Publisher
