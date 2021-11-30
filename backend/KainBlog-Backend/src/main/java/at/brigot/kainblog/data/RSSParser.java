@@ -1,13 +1,12 @@
 package at.brigot.kainblog.data;
 
 
-import org.apache.commons.digester.Digester;
-import org.apache.commons.digester.rss.Channel;
+import at.brigot.kainblog.pojos.Channel;
 import at.brigot.kainblog.pojos.Article;
 import at.brigot.kainblog.pojos.Item;
-import org.apache.commons.digester.rss.RSSDigester;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -19,8 +18,7 @@ import java.util.stream.Collectors;
  * Parses values into an RSS-Xml element
  */
 public class RSSParser {
-    private static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm:ss", Locale.GERMAN);
-
+    private static final DateTimeFormatter DTF = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm:ss", Locale.GERMAN);
     public String parseArticleForMongo(Article article){
         String db_string = "";
 
@@ -33,15 +31,16 @@ public class RSSParser {
         item.setLink("http://placeholder.com");
         item.setDescription(article.getDescription());
         item.setGuid(article.getArticleId());
+        item.setPicture(article.getPicture());
         return item;
     }
 
-    public String parseToXMLFile(List<Article> articles){
+    public String parseToXMLFile(List<Article> articles) {
         String raw = "";
-        RSSDigester rssDigester = new RSSDigester();
-        rssDigester.setItemClass("at.brigot.kainblog.pojos.Item");
         Channel channel = new Channel();
         channel.setTitle("Kainblog-RSS");
+        channel.setLink("www.placeholder.com");
+        channel.setLanguage("DE-AT");
         channel.setPubDate(LocalDateTime.now().format(DTF));
         channel.setDescription("RSS-Feed des KainBlog-Forums");
         articles.stream().forEach(a -> {
@@ -64,7 +63,7 @@ public class RSSParser {
 
     public static void main(String[] args) {
         List<Article> articles = new ArrayList<>();
-        articles.add(new Article("1","Test", "test2", "test3"));
+        articles.add(new Article("1","Test", "test2", "test3","PIC"));
         RSSParser parser = new RSSParser();
         parser.parseToXMLFile(articles);
     }
