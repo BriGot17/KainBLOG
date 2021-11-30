@@ -8,6 +8,7 @@
     width: 100%;
     height: auto;
     margin-bottom: 1em;
+    overflow: auto;
 }
 .descContainer{
     display: flex;
@@ -16,15 +17,17 @@
     text-align: left;
 }
 .artikelHeadline{
+    padding-top: 0.3em;
     padding-left: 1em;
+    padding-bottom: 0.5em;
     text-align: left;
     border-bottom: 1px solid #ececec;
 }
 
 .artikelHeadline h2{
-    height: 1.4em;
+    height: fit-content;
     margin: unset;
-    font-size: 1.7em;
+    font-size: 1.3em;
 
 }
 
@@ -35,12 +38,13 @@ a {
 
 .artikelImage{
     display: flex;
-  
-    margin: 0.36em;
+    margin: 0.56em;
     margin-top: 1em;
     height: 100%;
-    width: 12em;
+    width: 14em;
+    float: inline-end;
 }
 .artikelDescription{
     display: flex;
+    width: 90%;
 }
