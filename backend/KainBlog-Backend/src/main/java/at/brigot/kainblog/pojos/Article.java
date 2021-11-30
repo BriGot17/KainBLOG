@@ -17,6 +17,7 @@ public class Article {
     //Publisher
     private String description;//Preview vom Artikel
     private String text;
+    private String picture;
 
 
 }

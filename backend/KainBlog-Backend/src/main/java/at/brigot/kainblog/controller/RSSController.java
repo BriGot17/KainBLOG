@@ -22,9 +22,9 @@ public class RSSController {
     public String getRSS(){
         System.out.println("here2");
         articleRepository.deleteAll();
-        articleRepository.save(new Article("1","Test","desc", "hello"));
-        articleRepository.save(new Article("2","Test2","desc","texting"));
-        articleRepository.save(new Article("3","Peter","Boss","Yes"));
+        articleRepository.save(new Article("1","Test","desc", "hello","PIC"));
+        articleRepository.save(new Article("2","Test2","desc","texting","PIC"));
+        articleRepository.save(new Article("3","Peter","Boss","Yes","PIC"));
         return rss.parseToXMLFile(articleRepository.findAllByDescriptionIsNotNull("", PageRequest.of(0, 25)));
     }
 
