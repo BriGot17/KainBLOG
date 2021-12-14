@@ -1,35 +1,38 @@
-<?xml version="1.0"?>
-
-<!DOCTYPE rss PUBLIC
-  "-//Netscape Communications//DTD RSS 0.91//EN"
-  "http://my.netscape.com/publish/formats/rss-0.91.dtd">
-
-<rss version="0.91">
+<rss version="2.0">
 
   <channel>
 
     <title>Kainblog-RSS</title>
     <description>RSS-Feed des KainBlog-Forums</description>
-    <link>null</link>
-    <language>null</language>
-    <pubDate>23 Nov. 2021, 23:20:41</pubDate>
+    <link>www.placeholder.com</link>
+    <language>DE-AT</language>
+    <pubDate>14 Dez. 2021 14:53:59</pubDate>
 
     <item>
       <title>Test</title>
       <link>http://placeholder.com</link>
       <description>desc</description>
+      <category>Computers</category>
+      <guid>1</guid>
+      <enclosure url="PIC"/>
     </item>
 
     <item>
       <title>Test2</title>
       <link>http://placeholder.com</link>
       <description>desc</description>
+      <category>Computers/Test</category>
+      <guid>2</guid>
+      <enclosure url="PIC"/>
     </item>
 
     <item>
       <title>Peter</title>
       <link>http://placeholder.com</link>
       <description>Boss</description>
+      <category>Computers/Test/Informatik</category>
+      <guid>3</guid>
+      <enclosure url="PIC"/>
     </item>
 
   </channel>
