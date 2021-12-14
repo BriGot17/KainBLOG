@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 public class Item implements Serializable {
     protected String description = null;
+    protected String category = null;
     protected String link = null;
     protected String title = null;
     protected String guid = null;
@@ -18,6 +19,13 @@ public class Item implements Serializable {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getLink() {
@@ -65,6 +73,10 @@ public class Item implements Serializable {
             writer.print(description);
             writer.println("</description>");
         }
+
+        writer.print("      <category>");
+        writer.print(category);
+        writer.println("</category>");
 
         writer.print("      <guid>");
         writer.print(guid);

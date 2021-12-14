@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RequestMapping(value = "/rss", produces = "application/xml")
 @RestController
 @CrossOrigin(origins= {"http://localhost:3000", "http://localhost:14000"}, methods = {RequestMethod.POST, RequestMethod.GET, RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.PUT})
@@ -21,10 +24,14 @@ public class RSSController {
     @GetMapping(path = "/feed")
     public String getRSS(){
         System.out.println("here2");
+        List<String> categories = new ArrayList<>();
+        categories.add("Computers");
         articleRepository.deleteAll();
-        articleRepository.save(new Article("1","Test","desc", "hello","PIC"));
-        articleRepository.save(new Article("2","Test2","desc","texting","PIC"));
-        articleRepository.save(new Article("3","Peter","Boss","Yes","PIC"));
+        articleRepository.save(new Article("1","Test",categories,"desc", "hello","PIC"));
+        categories.add("Test");
+        articleRepository.save(new Article("2","Test2",categories,"desc","texting","PIC"));
+        categories.add("Informatik");
+        articleRepository.save(new Article("3","Peter",categories,"Boss","Yes","PIC"));
         return rss.parseToXMLFile(articleRepository.findAllByDescriptionIsNotNull("", PageRequest.of(0, 25)));
     }
 

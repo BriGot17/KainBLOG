@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -15,6 +16,7 @@ public class Article {
     private String title;
     //Autor
     //Publisher
+    private List<String> category;
     private String description;//Preview vom Artikel
     private String text;
     private String picture;

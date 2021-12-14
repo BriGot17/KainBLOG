@@ -30,6 +30,14 @@ public class RSSParser {
         item.setTitle(article.getTitle());
         item.setLink("http://placeholder.com");
         item.setDescription(article.getDescription());
+        String category = "";
+        List<String> categories = article.getCategory();
+        for(int i = 0; i < categories.size();i++){
+            if(i!=0)
+                category += "/";
+            category += categories.get(i);
+        }
+        item.setCategory(category);
         item.setGuid(article.getArticleId());
         item.setPicture(article.getPicture());
         return item;
@@ -63,7 +71,9 @@ public class RSSParser {
 
     public static void main(String[] args) {
         List<Article> articles = new ArrayList<>();
-        articles.add(new Article("1","Test", "test2", "test3","PIC"));
+        List<String> category = new ArrayList<>();
+        category.add("Test");
+        articles.add(new Article("1","Test",category, "test2", "test3","PIC"));
         RSSParser parser = new RSSParser();
         parser.parseToXMLFile(articles);
     }
