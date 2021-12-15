@@ -2,10 +2,13 @@ import logo from './logo.svg';
 import './App.css';
 import Artikel from  './artikel';
 import React, {useState} from 'react';
+import {BrowserRouter as Router, Route, Link, Routes} from 'react-router-dom';
+import EditorView from './EditorView';
+
 //var XMLParser = require('react-xml-parser');
 
 function App() {
-  const RSS_URL = `http://192.168.0.190:8080/rss/feed/`;
+  const RSS_URL = `http://localhost:8080/rss/feed/`;
   const [items, setItems] = useState([]);
 
   const getRss = async (e) => {
@@ -28,26 +31,48 @@ function App() {
     }));
     setItems(feedItems);
   };
+  var itemMap = new Map();
+  items.forEach(item => {
+    itemMap.set(item.guid, item);
+  });
   
   return (
     <div className="App" onLoad={getRss}>
       <header className="App-header">
 
       </header>
-      <div className="filterContainer">xcv</div>
-
-      <div className="artikelList">
-        {
-          items.map(item => <Artikel img={item.enclosure} title={item.title} desc={item.description} link={item.link} tags={item.categories} />)
-        }
-        <span style={{display: 'none'}}>
-        <Artikel img={logo}/>
-        </span>
-        
+      <Router>
+      <div className="filterContainer">
+        <Link to={'article/new'}>Add new Article</Link>
       </div>
       
+        <div className="artikelList">
+          {
+            items.map(item => (
+              <Link to={'/article/${item.guid}'}>
+                <Artikel img={item.enclosure} title={item.title} desc={item.description} link={item.link} tags={item.categories} />
+              </Link>))
+          } 
+          <span style={{display: 'none'}}>
+          <Artikel img={logo}/>
+          </span>
+          
+        </div>
+        <Routes>
+          <Route path="/article/">
+          {
+            
+            items.map(item => (
+              <Route path={'/:guid'} />
+            ))
+          }
+          </Route>
+          <Route path="/article/new" element={EditorView}/>
+        </Routes>
+        
+      </Router>
     </div>
   );
-}
+}//
 
 export default App;
