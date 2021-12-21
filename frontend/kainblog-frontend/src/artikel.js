@@ -14,17 +14,16 @@ function Artikel(props){
         color = '#008000';
     
     return (
-        <a className='articleLink' href={props.link}>
-            <div className="artikelContainer" >
+    <div className="artikelContainer" >
         <div  className="artikelHeadline" style={{backgroundColor: color}}>
-            <h2><a href={props.link}> {props.title} </a></h2>
+            <h2>{props.title}</h2>
         </div>
         <div className="descContainer">
             <p className="artikelDescription">{props.desc}</p>
             <img src={props.img} className="artikelImage"></img>
             
         </div>
-    </div></a>
+    </div>
     )
     
 }

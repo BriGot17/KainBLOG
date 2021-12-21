@@ -1,7 +1,7 @@
 import './App.css';
-import Artikel from  './artikel';
+//import Artikel from  './artikel';
 import React, {useState} from 'react';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+//import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import ArticleEditor from './ArticleEditor';
 
 function editorView(props) {
@@ -11,7 +11,8 @@ function editorView(props) {
     try{
         item = props.item
     }catch (e){
-        console.error(e);
+        console.log("This is an error")
+        //console.error(e);
     }
     if(item != null){
         titleText = item.title;
@@ -19,7 +20,11 @@ function editorView(props) {
     }
 
     return(
-        <ArticleEditor />
+        <div>
+            <h1>asdfasfd</h1>
+            
+        </div>
+        
     )
 
 }

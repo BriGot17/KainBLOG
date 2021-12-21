@@ -12,14 +12,16 @@ const ArticleEditor = ({ onSubmit }) => {
         e.preventDefault()
         onSubmit({ body })
     }
-
+    //<label for="title">Titel</label>
+    //<input type="text" name="title" />
+    //<label for="description">Beschreibung (Kurze Zusammenfassung des Inhalts)</label>
+    //<input type="text" name="description" />
     return (
         <form onSubmit={handleSubmit}>
-            <label for="title">Titel</label>
-            <input type="text" name="title" />
+            
 
-            <label for="description">Beschreibung (Kurze Zusammenfassung des Inhalts)</label>
-            <input type="text" name="description" />
+            
+             
             <CKEditor
                 editor={ClassicEditor}
                 onChange={(event, editor) => {
