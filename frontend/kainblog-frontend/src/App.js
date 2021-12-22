@@ -12,18 +12,13 @@ function App() {
       <header className="App-header">
 
       </header>
-    
-      <ArticleList />
       <Router>
         <Routes>
-          <Route path="/" render={<ArticleList />} />
+          <Route path="/" element={ArticleList()} />
           <Route path="/article/new" element={EditorView}/>
           
         </Routes>
-        
       </Router>
-
-      
     </div>
   );
 }//

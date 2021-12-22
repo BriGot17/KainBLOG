@@ -20,8 +20,8 @@ function editorView(props) {
     }
 
     return(
-        <div>
-            <h1>asdfasfd</h1>
+        <div className="contentWrapper">
+            
             
         </div>
         

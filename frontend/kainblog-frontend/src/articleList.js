@@ -1,17 +1,18 @@
 import './App.css'
 import './artikel.css'
-import {BrowserRouter as Router, Route, Link, Routes} from 'react-router-dom';
+import {Route, Link, Routes} from 'react-router-dom';
 import Artikel from  './artikel';
-import React, {useState} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 
 function ArticleList(){
-    const RSS_URL = `http://192.168.0.190:8080/rss/feed/`;
+  const RSS_URL = `http://localhost:8080/rss/feed/`;
   const [items, setItems] = useState([]);
 
   const getRss = async (e) => {
     const res = await fetch(RSS_URL);
     const  contents  = await res.text();
     console.log(contents);
+    console.log('here I am')
     const feed = new window.DOMParser().parseFromString(contents, "text/xml");
     const items = feed.querySelectorAll("item");
 
@@ -25,19 +26,27 @@ function ArticleList(){
     }));
     setItems(feedItems);
   };
+  useEffect(() => {
+    getRss()
+  }, []);
+  
   return (
-    <Router>
-    <div className="filterContainer">
+    <div className="contentWrapper">
+      <div className="filterContainer">
       <Link to={'article/new'}>Add new Article</Link>
     </div>
-    
-      <div className="artikelList" onLoad={getRss}>
+      <script>
+      </script>
+      <div className="artikelList">
         {
           items.map(item => (
-            <Link to={`/article/${item.guid}`}>
+            <Link to={`/article/${item.guid}`} className="articleLink">
               <Artikel img={item.enclosure} title={item.title} desc={item.description} link={item.link} tags={item.categories} />
             </Link>))
         } 
+        {
+          console.log('Now I am here')
+        }
         <span style={{display: 'none'}}>
         <Artikel desc="" />
         </span>
@@ -50,8 +59,8 @@ function ArticleList(){
           ))
         }
       </Routes>
-      
-    </Router>
+    </div>
+    
   )
 }
 export default ArticleList;
