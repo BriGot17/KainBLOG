@@ -29,8 +29,9 @@ public class RSSController {
         categories.add("Computers");
         articleRepository.deleteAll();
         articleRepository.save(new Article("1","Test",categories,"desc", "hello","PIC"));
-        categories.add("Test");
+        categories.add("Automatisierung");
         articleRepository.save(new Article("2","Test2",categories,"desc","texting","PIC"));
+        categories.clear();
         categories.add("Informatik");
         articleRepository.save(new Article("3","Peter",categories,"Boss","Yes","PIC"));
         return rss.parseToXMLFile(articleRepository.findAllByDescriptionIsNotNull("", PageRequest.of(0, 25)));

@@ -4,6 +4,7 @@ import {Route, Link, Routes} from 'react-router-dom';
 import Artikel from  './artikel';
 import React, {Component, useEffect, useState} from 'react';
 
+
 function ArticleList(){
   const RSS_URL = `http://localhost:8080/rss/feed/`;
   const [items, setItems] = useState([]);
@@ -25,6 +26,7 @@ function ArticleList(){
       categories: el.querySelector("category").innerHTML
     }));
     setItems(feedItems);
+    console.log(items)
   };
   useEffect(() => {
     getRss()

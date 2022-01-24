@@ -2,7 +2,7 @@ import './App.css';
 //import Artikel from  './artikel';
 import React, {useState} from 'react';
 //import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
-import ArticleEditor from './ArticleEditor';
+import ArticleEditor from './EditorForm';
 
 function editorView(props) {
     var item;
@@ -21,8 +21,7 @@ function editorView(props) {
 
     return(
         <div className="contentWrapper">
-            
-            
+            <ArticleEditor/>
         </div>
         
     )

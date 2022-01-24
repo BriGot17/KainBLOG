@@ -24,6 +24,13 @@ public class ArticleController {
         return "feed";
     }
 
+    @PostMapping(path = "/new")
+    public String createArticle(@RequestBody String body){
+        System.out.println("hello");
+        System.out.println(body);
+        return body;
+    }
+
     @GetMapping(path = "/id")
     public String readArticle(){
 

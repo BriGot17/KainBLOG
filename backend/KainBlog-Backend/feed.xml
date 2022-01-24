@@ -6,7 +6,7 @@
     <description>RSS-Feed des KainBlog-Forums</description>
     <link>www.placeholder.com</link>
     <language>DE-AT</language>
-    <pubDate>22 Dez. 2021 15:52:16</pubDate>
+    <pubDate>17 Jan. 2022 10:07:55</pubDate>
 
     <item>
       <title>Test</title>
@@ -21,7 +21,7 @@
       <title>Test2</title>
       <link>http://placeholder.com</link>
       <description>desc</description>
-      <category>Computers/Test</category>
+      <category>Computers/Automatisierung</category>
       <guid>2</guid>
       <enclosure url="PIC"/>
     </item>
@@ -30,7 +30,7 @@
       <title>Peter</title>
       <link>http://placeholder.com</link>
       <description>Boss</description>
-      <category>Computers/Test/Informatik</category>
+      <category>Informatik</category>
       <guid>3</guid>
       <enclosure url="PIC"/>
     </item>
