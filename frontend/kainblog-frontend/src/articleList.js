@@ -6,7 +6,7 @@ import React, {Component, useEffect, useState} from 'react';
 
 
 function ArticleList(){
-  const RSS_URL = `http://localhost:8080/rss/feed/`;
+  const RSS_URL = `http://192.168.0.190:8080/rss/feed/`;
   const [items, setItems] = useState([]);
 
   const getRss = async (e) => {
