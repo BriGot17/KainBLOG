@@ -39,8 +39,7 @@ public class DB_Access implements CommandLineRunner {
 
         List<String> categories = new ArrayList<>();
         categories.add("Computers");
-
-        repository.deleteAll();
+        
         repository.save(new Article("1","Test",categories,"desc", "hello","PIC"));
         categories.add("Test");
         repository.save(new Article("2","Test2",categories,"desc","texting","PIC"));
