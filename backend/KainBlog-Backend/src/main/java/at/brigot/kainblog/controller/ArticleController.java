@@ -2,7 +2,6 @@ package at.brigot.kainblog.controller;
 
 
 import at.brigot.kainblog.data.ArticleRepository;
-import at.brigot.kainblog.data.RSSParser;
 import at.brigot.kainblog.pojos.Article;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,33 +12,33 @@ import java.util.UUID;
 
 @RequestMapping(value = "/article")
 @RestController
-@CrossOrigin(origins= {"http://localhost:3000", "http://localhost:14000"}, methods = {RequestMethod.POST, RequestMethod.GET, RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.PUT})
+@CrossOrigin(origins= {"*"}, methods = {RequestMethod.POST, RequestMethod.GET, RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.PUT})
 public class ArticleController {
 
-    private RSSParser rss = new RSSParser();
+    //private RSSParser rss = new RSSParser();
     @Autowired
-    private ArticleRepository articleRepository;
+    private ArticleRepository articleRepo;
 
-    @PutMapping(path = "/edit")
-    public String editArticle(Article article){
-        Article a = null;
+    @PatchMapping(path = "/edit/{guid}")
+    public ResponseEntity<Article> editArticle(@RequestBody Article article){
 
-        articleRepository.save(a);
-        return "feed";
+        articleRepo.deleteArticleByArticleId(article.getArticleId());
+        articleRepo.save(article);
+        return new ResponseEntity<>(article, HttpStatus.OK);
     }
 
     @PostMapping(path = "/new")
     public ResponseEntity<Article> createNewArticle(@RequestBody Article article){
         System.out.println(article.toString());
         article.setArticleId(UUID.randomUUID().toString());
-        articleRepository.save(article);
+        articleRepo.save(article);
         return new ResponseEntity<>(article, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/id")
-    public String readArticle(){
-
-        return null;
+    @GetMapping(path = "/{guid}")
+    public ResponseEntity<Article> getArticle(@PathVariable("guid") String guid){
+        System.out.println("I bims eins Debug");
+        return ResponseEntity.of(articleRepo.findArticleByArticleId(guid));
     }
 
 }

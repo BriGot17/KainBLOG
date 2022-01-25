@@ -6,33 +6,69 @@
     <description>RSS-Feed des KainBlog-Forums</description>
     <link>www.placeholder.com</link>
     <language>DE-AT</language>
-    <pubDate>25 Jan. 2022 02:28:03</pubDate>
+    <pubDate>25 Jan. 2022 14:24:35</pubDate>
 
     <item>
       <title>Test</title>
       <link>http://placeholder.com</link>
-      <description>desc</description>
-      <category>Computers</category>
-      <guid>1</guid>
-      <enclosure url="PIC"/>
+      <description>Dies ist ein Testartikel</description>
+      <category>informatik/projektwoche</category>
+      <guid>a9d072df-97e7-47a0-ae4e-d41ce6c77778</guid>
+      <enclosure url="null"/>
     </item>
 
     <item>
-      <title>Test2</title>
+      <title>Test 2</title>
       <link>http://placeholder.com</link>
-      <description>desc</description>
-      <category>Computers/Automatisierung</category>
-      <guid>2</guid>
-      <enclosure url="PIC"/>
+      <description>Ein weiterer Test</description>
+      <category>automatisierung/diplomarbeit</category>
+      <guid>962e5a55-621e-4e38-88ea-3fca60a61345</guid>
+      <enclosure url="null"/>
     </item>
 
     <item>
-      <title>Peter</title>
+      <title>Ein neuer Artikel</title>
       <link>http://placeholder.com</link>
-      <description>Boss</description>
-      <category>Informatik</category>
-      <guid>3</guid>
-      <enclosure url="PIC"/>
+      <description>Dies ist ein neuer Artikel, welcher im Frontend erstellt wurde</description>
+      <category>informatik/exkursion/projektwoche</category>
+      <guid>02b0e4e6-4ccb-47d3-b599-052c02a4f5c5</guid>
+      <enclosure url="null"/>
+    </item>
+
+    <item>
+      <title>Test</title>
+      <link>http://placeholder.com</link>
+      <description>Test 2</description>
+      <category>robotik/projektwoche</category>
+      <guid>3d33b93d-986c-4df3-90e9-72637cfba48f</guid>
+      <enclosure url="null"/>
+    </item>
+
+    <item>
+      <title>hallo</title>
+      <link>http://placeholder.com</link>
+      <description>hallo2</description>
+      <category>mechatronik/diplomarbeit</category>
+      <guid>2a119353-12f1-4e8e-af62-b94757483ac0</guid>
+      <enclosure url="null"/>
+    </item>
+
+    <item>
+      <title>Neuer Test</title>
+      <link>http://placeholder.com</link>
+      <description>ein weiterer Test</description>
+      <category>automatisierung/projektwoche/eaa</category>
+      <guid>71a68ff9-d955-43db-b37d-62262b8c3b5f</guid>
+      <enclosure url="null"/>
+    </item>
+
+    <item>
+      <title>Test</title>
+      <link>http://placeholder.com</link>
+      <description>Dies ist ein Testartikel</description>
+      <category>exkursion/eaa</category>
+      <guid>22c19fb0-99c3-4950-b585-1514911025f2</guid>
+      <enclosure url="null"/>
     </item>
 
   </channel>
