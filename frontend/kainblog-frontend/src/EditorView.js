@@ -3,7 +3,7 @@ import './App.css';
 import React, {useState} from 'react';
 //import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import ArticleEditor from './EditorForm';
-
+import './Editor.css'
 function editorView(props) {
     var item;
     var titleText = '';
@@ -21,7 +21,10 @@ function editorView(props) {
 
     return(
         <div className="contentWrapper">
-            <ArticleEditor/>
+            <div className="editorContainer">
+                <ArticleEditor/>
+            </div>
+            
         </div>
         
     )
