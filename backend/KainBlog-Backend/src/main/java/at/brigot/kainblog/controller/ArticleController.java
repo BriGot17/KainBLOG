@@ -5,7 +5,11 @@ import at.brigot.kainblog.data.ArticleRepository;
 import at.brigot.kainblog.data.RSSParser;
 import at.brigot.kainblog.pojos.Article;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RequestMapping(value = "/article")
 @RestController
@@ -25,10 +29,11 @@ public class ArticleController {
     }
 
     @PostMapping(path = "/new")
-    public String createArticle(@RequestBody String body){
-        System.out.println("hello");
-        System.out.println(body);
-        return body;
+    public ResponseEntity<Article> createNewArticle(@RequestBody Article article){
+        System.out.println(article.toString());
+        article.setArticleId(UUID.randomUUID().toString());
+        articleRepository.save(article);
+        return new ResponseEntity<>(article, HttpStatus.OK);
     }
 
     @GetMapping(path = "/id")
