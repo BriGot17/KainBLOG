@@ -11,9 +11,7 @@ function ArticleList(){
 
   const getRss = async (e) => {
     const res = await fetch(RSS_URL);
-    const  contents  = await res.text();
-    console.log(contents);
-    console.log('here I am')
+    const contents = await res.text();
     const feed = new window.DOMParser().parseFromString(contents, "text/xml");
     const items = feed.querySelectorAll("item");
 
@@ -26,7 +24,6 @@ function ArticleList(){
       categories: el.querySelector("category").innerHTML
     }));
     setItems(feedItems);
-    console.log(items)
   };
   useEffect(() => {
     getRss()
@@ -35,32 +32,26 @@ function ArticleList(){
   return (
     <div className="contentWrapper">
       <div className="filterContainer">
-      <Link to={'article/new'}>Add new Article</Link>
-    </div>
-      <script>
-      </script>
+      
+      </div>
+      <script></script>
+
       <div className="artikelList">
         {
           items.map(item => (
-            <Link to={`/article/${item.guid}`} className="articleLink">
+            <Link to={`/article/${item.guid}`} className="articleLink" >
               <Artikel img={item.enclosure} title={item.title} desc={item.description} link={item.link} tags={item.categories} />
             </Link>))
         } 
-        {
-          console.log('Now I am here')
-        }
+
         <span style={{display: 'none'}}>
         <Artikel desc="" />
         </span>
         
       </div>
-      <Routes>
-        {
-          items.map(item => (
-            <Route path={'/article/:guid'} />
-          ))
-        }
-      </Routes>
+
+
+      
     </div>
     
   )

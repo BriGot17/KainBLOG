@@ -1,28 +1,41 @@
 import './App.css';
 //import Artikel from  './artikel';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 //import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import ArticleEditor from './EditorForm';
 import './Editor.css'
-function editorView(props) {
-    var item;
-    var titleText = '';
-    var descText = '';
-    try{
-        item = props.item
-    }catch (e){
-        console.log("This is an error")
-        //console.error(e);
-    }
-    if(item != null){
-        titleText = item.title;
-        descText = item.desc;
-    }
+import {Link, useParams} from 'react-router-dom';
+function EditorView() {
+    const params = useParams();
+    const [article, setArticle] = useState(null);
+    
+    
+    
+    const getArticle = async () =>{
+            let res = await fetch(`http://192.168.0.190:8080/article/${params.guid}`);
+            let json = await res.json();
+            setArticle(json);
+            console.log("guid passed");
+        
+    };
 
-    return(
+    useEffect(() => {
+        let guid = params.guid;
+        let guidExist = false;
+        
+        if(guid != null){
+            getArticle();
+        }
+        else{
+            setArticle({text: ''})
+        }
+       //console.log(article) 
+    }, [])
+
+    return article === null ? <span>Loading ...</span> : (
         <div className="contentWrapper">
             <div className="editorContainer">
-                <ArticleEditor/>
+                <ArticleEditor article={article}/>
             </div>
             
         </div>
@@ -31,4 +44,4 @@ function editorView(props) {
 
 }
 
-export default editorView();
+export default EditorView;

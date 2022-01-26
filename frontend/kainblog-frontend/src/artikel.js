@@ -4,13 +4,13 @@ function Artikel(props){
     //var categories = props.categories;
     var categories = String(props.tags).split('/');
     var color = '#72326c';
-    if(categories.includes('Informatik'))
+    if(categories.includes('informatik'))
         color = '#5d8ec6';
-    else if(categories.includes('Automatisierung'))
+    else if(categories.includes('automatisierung'))
         color = '#b5213a';
-    else if(categories.includes('Mechatronik'))
+    else if(categories.includes('mechatronik'))
         color = '#cb9e10';
-    else if(categories.includes('Robotik'))
+    else if(categories.includes('robotik'))
         color = '#008000';
     
     return (

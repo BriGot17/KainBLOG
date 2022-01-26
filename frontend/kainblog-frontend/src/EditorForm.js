@@ -6,6 +6,7 @@ import { categoryOptions, editorConfig } from './configs'
 import './Editor.css'
 import './Forms.css'
 import './App.css'
+import { Link } from 'react-router-dom'
 import {default as ReactSelect, components} from "react-select"
 
 const Option = (props) => {
@@ -26,7 +27,8 @@ const Option = (props) => {
 class ArticleForm extends React.Component {
     constructor(props){
         super(props);
-        this.state = {};
+        this.state = props.article;
+        console.log(this.state)
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.fileInput = React.createRef();
@@ -60,9 +62,9 @@ class ArticleForm extends React.Component {
         let json = this.state
         let cats = this.state.category
         let values = cats.map(e => e.value)
-        console.log(JSON.stringify(json))
+        //console.log(JSON.stringify(json))
         json.category = values
-        console.log(JSON.stringify(json))
+        //console.log(JSON.stringify(json))
        
         
         const reqOptions = {
@@ -73,23 +75,18 @@ class ArticleForm extends React.Component {
         fetch('http://192.168.0.190:8080/article/new', reqOptions)
             .then(response => alert(response.status));
         this.setState({})
-        this.clearFields()
+        window.location.reload(false);
     }
     
-    clearFields(){
-        document.getElementById("title").value = '';
-        document.getElementById("desc").value = 'Kurzbeschreibung';
-        document.getElementById("catSelect").value = null;
-        
-    }
+
     render(){
         return (
             
             <div className='center'> 
                 <form>
-                    
-                    <input onChange={this.handleChange} type="text" id="title" name="title" placeholder='Titel' className="formElement"/> <br/>
-                    <textarea name="description" id="desc" onChange={this.handleChange} className='formElement' defaultValue="Kurzbeschreibung"></textarea> <br/>
+                    <input name="title" onChange={this.handleChange} type="text" value={this.state.title} id="title"  placeholder='Titel' className="formElement"/> <br/>
+                    <textarea name="description" id="desc" onChange={this.handleChange} defaultValue={this.state.description === null ? "Kurzbeschreibung" : this.state.description} className='formElement'></textarea> <br/>
+
                     <label className="fileInput formElement">
                         <input type="file" name='picture' id="pic" aria-label="Titelbild" onChange={this.handleChange} ref={this.fileInput}/>
                         <span className="customFileInput"></span>
@@ -120,16 +117,19 @@ class ArticleForm extends React.Component {
                     <div className="formElement editorContainer">
                         <CKEditor 
                             editor={ClassicEditor}
+                            data={this.state.text}
                             onChange={(event, editor) => {
                                 const data = editor.getData();
                                 this.setState({
                                     ['text']: data
                                 });
+                                
                             }}
                         />
                     </div>
                     
-                    <button type='button' onClick={this.handleSubmit} className='formElement button'>Submit</button>
+                    <button type='button' onClick={this.handleSubmit} className='formElement button'>Einreichen 
+                    </button>
                 </form>    
             </div>
         )
