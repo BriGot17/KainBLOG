@@ -4,13 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Article {
+
 
     private String articleId;
     private String title;
@@ -20,6 +20,5 @@ public class Article {
     private String description;//Preview vom Artikel
     private String text;
     private String picture;
-
 
 }

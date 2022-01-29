@@ -6,7 +6,6 @@ import at.brigot.kainblog.pojos.Article;
 import at.brigot.kainblog.pojos.Item;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;

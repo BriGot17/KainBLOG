@@ -1,53 +1,37 @@
-import logo from './logo.svg';
 import './App.css';
-import Artikel from  './artikel';
-import React, {useState} from 'react';
+import {BrowserRouter as Router, Route, Link, Routes} from 'react-router-dom';
+import EditorView from './EditorView';
+import ArticleList  from './articleList';
+import ArticleEditor from './EditorForm';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import ArticleNav from './ArticleNav';
+import ArticleView from './ArticleReadView';
+
 //var XMLParser = require('react-xml-parser');
 
 function App() {
-  const RSS_URL = `http://192.168.0.190:8080/rss/feed/`;
-  const [items, setItems] = useState([]);
-
-  const getRss = async (e) => {
-    const res = await fetch(RSS_URL);
-    const  contents  = await res.text();
-    console.log(contents);
-    //var parser = new XMLParser();
-    //const feed = parser.parseFromString(contents);
-    //const xml = feed.querySelectorAll("item");
-    const feed = new window.DOMParser().parseFromString(contents, "text/xml");
-    const items = feed.querySelectorAll("item");
-
-    const feedItems = [...items].map((el) => ({
-      link: el.querySelector("link").innerHTML,
-      title: el.querySelector("title").innerHTML,
-      description: el.querySelector("description").innerHTML,
-      guid: el.querySelector("guid").innerHTML,
-      enclosure: el.querySelector("enclosure").getAttribute("url"),
-      categories: el.querySelector("category").innerHTML
-    }));
-    setItems(feedItems);
-  };
   
-  return (
-    <div className="App" onLoad={getRss}>
+return (
+    <div className="App" >
       <header className="App-header">
 
       </header>
-      <div className="filterContainer">xcv</div>
-
-      <div className="artikelList">
-        {
-          items.map(item => <Artikel img={item.enclosure} title={item.title} desc={item.description} link={item.link} tags={item.categories} />)
-        }
-        <span style={{display: 'none'}}>
-        <Artikel img={logo}/>
-        </span>
-        
-      </div>
       
+      <Router>
+        <ArticleNav />
+        
+        
+        <Routes>
+          
+          <Route path="/" element={ArticleList()} />
+          <Route path="/article/new" element={<EditorView />}/>
+          <Route path="/article/edit/:guid" element={<EditorView />} />
+          <Route path={"/article/:guid"} element={<ArticleView />}/>    
+        </Routes>
+      </Router>
     </div>
-  );
+);
 }
 
 export default App;
