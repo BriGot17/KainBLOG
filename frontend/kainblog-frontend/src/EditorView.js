@@ -16,11 +16,13 @@ function EditorView() {
             let json = await res.json();
             let rawCategories = json.category;
             let categories = [];
+            console.log(json)
+            if(rawCategories[0] != null){
+                rawCategories.forEach((x) => {
+                    categories.push({value: x, label: x.charAt(0).toUpperCase() + x.slice(1)});
+                })
+            }
             
-            rawCategories.forEach((x) => {
-                x.replace("_", " und ")
-                categories.push({value: x, label: x.charAt(0).toUpperCase() + x.slice(1)});
-            })
             json.category = categories;
             setArticle(json);
             console.log(json)
