@@ -11,11 +11,20 @@ function EditorView() {
     
     
     
-    const getArticle = async () =>{
+    const fetchArticle = async () =>{
             let res = await fetch(`http://192.168.0.190:8080/article/${params.guid}`);
             let json = await res.json();
+            let rawCategories = json.category;
+            let categories = [];
+            
+            rawCategories.forEach((x) => {
+                x.replace("_", " und ")
+                categories.push({value: x, label: x.charAt(0).toUpperCase() + x.slice(1)});
+            })
+            json.category = categories;
             setArticle(json);
-            console.log("guid passed");
+            console.log(json)
+            //console.log("guid passed");
         
     };
 
@@ -24,7 +33,7 @@ function EditorView() {
         let guidExist = false;
         
         if(guid != null){
-            getArticle();
+            fetchArticle();
         }
         else{
             setArticle({text: ''})
