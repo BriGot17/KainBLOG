@@ -28,7 +28,7 @@ class ArticleForm extends React.Component {
     constructor(props){
         super(props);
         this.state = props.article;
-        console.log(this.state)
+        
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.fileInput = React.createRef();
@@ -58,7 +58,7 @@ class ArticleForm extends React.Component {
         
     }
     handleSubmit(event){
-        
+        console.log(this.state); 
         let json = this.state
         let cats = this.state.category
         let values = cats.map(e => e.value)
@@ -67,13 +67,26 @@ class ArticleForm extends React.Component {
         //console.log(JSON.stringify(json))
        
         
-        const reqOptions = {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(json)
-        };
-        fetch('http://192.168.0.190:8080/article/new', reqOptions)
+       console.log(this.state);
+        if(this.state.guid != null){
+            const reqOptions = {
+                method: 'PATCH',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(json)
+            };
+            fetch('http://192.168.0.190:8080/article/edit', reqOptions)
             .then(response => alert(response.status));
+        }
+        else{
+            const reqOptions = {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(json)
+            };
+            fetch('http://192.168.0.190:8080/article/new', reqOptions)
+                .then(response => alert(response.status));
+        }
+        
         this.setState({})
         window.location.reload(false);
     }
