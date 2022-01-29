@@ -27,8 +27,9 @@ const Option = (props) => {
 class ArticleForm extends React.Component {
     constructor(props){
         super(props);
-        this.state = props.article;
         
+        this.state = props.article;
+        console.log(this.state)
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.fileInput = React.createRef();
@@ -67,13 +68,14 @@ class ArticleForm extends React.Component {
         //console.log(JSON.stringify(json))
        
         
-       console.log(this.state);
-        if(this.state.guid != null){
+       console.log(this.state.articleId != null);
+        if(this.state.articleId != null){
             const reqOptions = {
-                method: 'PATCH',
+                method: 'PUT',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(json)
             };
+            console.log("Im patching this")
             fetch('http://192.168.0.190:8080/article/edit', reqOptions)
             .then(response => alert(response.status));
         }
@@ -87,7 +89,7 @@ class ArticleForm extends React.Component {
                 .then(response => alert(response.status));
         }
         
-        this.setState({})
+        
         window.location.reload(false);
     }
     
