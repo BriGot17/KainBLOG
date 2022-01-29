@@ -21,3 +21,7 @@ backend/KainBlog-Backend/*.ipr
 
 ### VS Code ###
 .vscode/
+
+
+### Project-specific ###
+backend/KainBlog-Backend/feed.xml
