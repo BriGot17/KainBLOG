@@ -71,7 +71,7 @@ class ArticleForm extends React.Component {
        console.log(this.state.articleId != null);
         if(this.state.articleId != null){
             const reqOptions = {
-                method: 'PUT',
+                method: 'PATCH',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(json)
             };
