@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @RequestMapping(value = "/article")
@@ -46,7 +47,7 @@ public class ArticleController {
     @GetMapping(path = "/{guid}")
     public ResponseEntity<Article> getArticle(@PathVariable("guid") String guid){
         System.out.println("I bims eins Debug");
-        return ResponseEntity.of(articleRepo.findArticleByArticleId(guid));
+        return ResponseEntity.of(Optional.of(articleRepo.findArticleByArticleId(guid)));
     }
 
 }

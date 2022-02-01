@@ -71,13 +71,10 @@ class ArticleForm extends React.Component {
         
        console.log(this.state.articleId != null);
         if(this.state.articleId != null){
-            const reqOptions = {
-                method: 'PATCH',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(json)
-            };
-            console.log("Before patch fetch")
-            axios.post("http://localhost:8080/article/new", JSON.stringify(json))
+            
+            const headers = {'Content-Type': 'application/json'};
+              
+            axios.patch("http://localhost:8080/article/edit", JSON.stringify(json), {headers})
                 .then(response => alert(response.status));
         }
         else{
@@ -86,8 +83,8 @@ class ArticleForm extends React.Component {
                 headers: {'Content-Type': 'application/json'},
                 data: JSON.stringify(json)
             };
-            console.log("Before fetch")
-            axios.post("http://localhost:8080/article/new", JSON.stringify(json))
+            const headers = {'Content-Type': 'application/json'};
+            axios.post("http://localhost:8080/article/new", JSON.stringify(json), {headers})
                 .then(response => alert(response.status));
         }
     }
