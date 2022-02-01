@@ -6,10 +6,12 @@ import React, {Component, useEffect, useState} from 'react';
 
 
 function ArticleList(){
-  const RSS_URL = `http://192.168.0.190:8080/rss/feed/`;
+  const RSS_URL = `http://localhost:8080/rss/feed/`;
   const [items, setItems] = useState([]);
+  useEffect(() => {
+    
 
-  const getRss = async (e) => {
+    const getRss = async (e) => {
     const res = await fetch(RSS_URL);
     const contents = await res.text();
     const feed = new window.DOMParser().parseFromString(contents, "text/xml");
@@ -25,7 +27,6 @@ function ArticleList(){
     }));
     setItems(feedItems);
   };
-  useEffect(() => {
     getRss()
   }, []);
   

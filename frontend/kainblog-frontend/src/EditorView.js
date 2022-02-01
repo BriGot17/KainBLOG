@@ -12,7 +12,7 @@ function EditorView() {
     
     
     const fetchArticle = async () =>{
-            let res = await fetch(`http://192.168.0.190:8080/article/${params.guid}`);
+            let res = await fetch(`http://localhost:8080/article/${params.guid}`);
             let json = await res.json();
             let rawCategories = json.category;
             let categories = [];

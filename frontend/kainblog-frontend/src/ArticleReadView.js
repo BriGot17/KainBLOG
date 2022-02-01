@@ -11,7 +11,7 @@ function ArticleView() {
     
     
     const articleData = () => {
-        fetch(`http://192.168.0.190:8080/article/${params.guid}`)
+        fetch(`http://localhost:8080/article/${params.guid}`)
         .then((res) => res.json())
         .then((data) => setArticle(data))
     };

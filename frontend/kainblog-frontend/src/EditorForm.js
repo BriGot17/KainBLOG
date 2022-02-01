@@ -6,6 +6,7 @@ import { categoryOptions, editorConfig } from './configs'
 import './Editor.css'
 import './Forms.css'
 import './App.css'
+import axios from 'axios'
 import { Link } from 'react-router-dom'
 import {default as ReactSelect, components} from "react-select"
 
@@ -75,22 +76,20 @@ class ArticleForm extends React.Component {
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(json)
             };
-            console.log("Im patching this")
-            fetch('http://192.168.0.190:8080/article/edit', reqOptions)
-            .then(response => alert(response.status));
+            console.log("Before patch fetch")
+            axios.post("http://localhost:8080/article/new", JSON.stringify(json))
+                .then(response => alert(response.status));
         }
         else{
             const reqOptions = {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(json)
+                data: JSON.stringify(json)
             };
-            fetch('http://192.168.0.190:8080/article/new', reqOptions)
+            console.log("Before fetch")
+            axios.post("http://localhost:8080/article/new", JSON.stringify(json))
                 .then(response => alert(response.status));
         }
-        
-        
-        window.location.reload(false);
     }
     
 
