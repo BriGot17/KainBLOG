@@ -27,7 +27,7 @@
   border: grey solid 1px;
   border-radius: 8px;
   margin: 1em 1em 0;
-  height: 15em;
+  height: min-content;
   float: right;
   width: 20em;
 }
@@ -68,5 +68,9 @@
 
 .articleView {
   margin-top: 3em;
+}
+.contentContainer{
+  width:100%;
+  margin-top: 2em;  
 }
 

@@ -9,13 +9,14 @@ input {
     font-size: 1.1em;
 }
 
-input[type=text] {
+input[type=text], [type=password] {
     border: solid #a1a0a0 2px;
     border-radius: 8px;
     outline-color: #a1a0a0;
     color:black;
     padding-left: 0.6em;
 }
+
 
 textarea{
     font-size: 1.1em;
@@ -109,4 +110,10 @@ input[type=button] {
 .categorySelect {
     
     width: 40%;
+}
+.loginContainer{
+    width: 20%;
+    
+    margin: auto;
+    margin-top:10rem;
 }
