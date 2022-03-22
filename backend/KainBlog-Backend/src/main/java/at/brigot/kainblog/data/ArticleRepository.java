@@ -6,6 +6,7 @@ import at.brigot.kainblog.pojos.Article;
 import java.util.List;
 import java.util.Optional;
 
+import at.brigot.kainblog.pojos.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
@@ -19,6 +20,6 @@ public interface ArticleRepository extends MongoRepository<Article, String> {
     public List<Article> findAllByDescriptionIsNotNull(String description);
 
     public void deleteArticleByArticleId(String id);
-
+    List<Article> findByPublisher(User user);
 
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@CrossOrigin(origins= {"*"}, methods = {RequestMethod.POST, RequestMethod.GET, RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.PUT})
+@CrossOrigin(origins = {"*"}, methods = {RequestMethod.POST, RequestMethod.GET, RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.PUT})
 @RequestMapping(value = "/rss", produces = "application/xml")
 public class RSSController {
 
@@ -19,14 +19,8 @@ public class RSSController {
 
     @GetMapping(path = "/feed")
     public String getRSS(){
-
+        System.out.println("here yay");
         return rss.parseToXMLFile(articleRepository.findAllByDescriptionIsNotNull("", PageRequest.of(0, 25)));
-    }
-
-    @GetMapping
-    public String home(){
-        System.out.println("here");
-        return "ok";
     }
 
 }

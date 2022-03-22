@@ -41,3 +41,5 @@ export const categoryOptions = [
     { value: "sga", label: "SGA" },
     { value: "projektarbeit", label: "Projektarbeit" }
   ];
+
+export const connectionInfo = "http://localhost:8080/";

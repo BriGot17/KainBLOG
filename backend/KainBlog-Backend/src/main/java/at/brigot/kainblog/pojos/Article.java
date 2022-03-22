@@ -1,24 +1,28 @@
 package at.brigot.kainblog.pojos;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class Article {
 
 
+    @NonNull
     private String articleId;
+    @NonNull
     private String title;
-    //Autor
-    //Publisher
+    @NonNull
+    private User publisher;
     private List<String> category;
+    @NonNull
     private String description;//Preview vom Artikel
+    @NonNull
     private String text;
     private String picture;
+
 
 }
