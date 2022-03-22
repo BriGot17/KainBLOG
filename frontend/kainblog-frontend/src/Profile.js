@@ -1,29 +1,39 @@
+import {Route, Link, Routes, useParams} from 'react-router-dom';
+import ArticleList from './articleList';
+import './Profile.css'
+
 function Profile() {
 
+    const params = useParams();
+
     return (
-        <div>
-            <h2>Profile</h2>
+        <div class="profilecontainer">
+            <h2>Profil</h2>
             <br/>
-            <table>
+            <table class="profiletable">
                 <tr>
-                    <td>Username</td>
-                    <td name="username"></td>
+                    <td class="headers">Username</td>
+                    <td class="items" name="username">gotped17</td>
                 </tr>
                 <tr>
-                    <td>Name</td>
-                    <td name="name"></td>
+                    <td class="headers">Name</td>
+                    <td class="items" name="name">Peter Wolfgang Gottlieb</td>
                 </tr>
                 <tr>
-                    <td>Jahrgang</td>
-                    <td name="year"></td>
+                    <td class="headers">Jahrgang</td>
+                    <td class="items" name="year">DHIF17</td>
                 </tr>
                 <tr>
-                    <td>Rolle</td>
-                    <td name="role"></td>
+                    <td class="headers">Rolle</td>
+                    <td class="items" name="role">Admin</td>
                 </tr>
             </table>
             <br/>
-            <label>Profilbeschreibung</label>
+            <div>
+                <h3>Profilbeschreibung</h3>
+                <p class="description">Die Profilbeschreibung des Users.</p>
+            </div>
+            <ArticleList/>
         </div>
     );
 

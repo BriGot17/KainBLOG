@@ -41,7 +41,6 @@ input[type=button] {
     border: none;
     color: white;
     font-size: 1.5em;
-    padding: 16px 32px;
     text-decoration: none;
     margin: 4px 2px;
     width: 40%;
@@ -49,7 +48,7 @@ input[type=button] {
     background-color: #72326c;
 }
 
-button[type="submit"]:hover {
+button:hover {
     background: #944b8d;
   }
 

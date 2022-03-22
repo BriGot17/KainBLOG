@@ -23,12 +23,10 @@ return (
       <Router>
         <ArticleNav />
         
-        
         <Routes>
-          
           <Route path="/" element={ArticleList()} />
           <Route path="/login" element={<Login />}/>
-          <Route path="/profile" element={<Profile />}/>
+          <Route path="/users/:username" element={<Profile />}/>
           <Route path="/article/new" element={<EditorView />}/>
           <Route path="/article/edit/:guid" element={<EditorView />} />
           <Route path={"/article/:guid"} element={<ArticleView />}/>    

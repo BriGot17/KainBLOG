@@ -24,10 +24,8 @@
 }
 .sideNavContainer{
   display: flex;
-  border: grey solid 1px;
-  border-radius: 8px;
   margin: 1em 1em 0;
-  height: 15em;
+  height: 150em;
   float: right;
   width: 20em;
 }
@@ -39,7 +37,10 @@
 }
 .buttonContainer{
   width:100%;
+  height: fit-content;
   position: relative;
+  border: grey solid 1px;
+  border-radius: 8px;
 }
 
 .navLink{
