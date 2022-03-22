@@ -1,32 +1,86 @@
-import React, { useState } from 'react'
-import { categoryOptions, editorConfig } from './configs'
-import './Editor.css'
-import './Forms.css'
-import './App.css'
-import axios from 'axios'
-import { Link } from 'react-router-dom'
 
-export default function Login(){
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+import React, { useState } from "react";
 
-    function validateForm() { //Primitive validation check
-        return username.length > 0 && password.length > 0;
+import "./Login.css";
+
+function Login() {
+
+  const [errorMessages, setErrorMessages] = useState({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const database = [
+    {
+      username: "user1",
+      password: "pass1"
+    },
+    {
+      username: "user2",
+      password: "pass2"
     }
+  ];
 
-    function handleSubmit(){
-        
+  const errors = {
+    user: "invalid username",
+    pass: "invalid password"
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    var loginform = document.forms[0];
+
+    var loginuser = loginform.user;
+    var pass = loginform.pass;
+
+    const userData = database.find((user) => user.username === loginuser.value);
+
+    if (userData) {
+      if (userData.password !== pass.value) {
+        setErrorMessages({ name: "pass", message: errors.pass });
+      } else {
+        setIsSubmitted(true);
+      }
+    } else {
+      setErrorMessages({ name: "user", message: errors.user });
     }
+  };
 
-    return (
-        <div className="loginContainer">
-            <form>
-                <input className="formElement" type="text" placeholder="Username" name="username" onChange={(e) => setUsername(e.target.value)}/>
+  const renderErrorMessage = (name) =>
+    name === errorMessages.name && (
+      <div class="error">{errorMessages.message}</div>
+    );
 
-                <input className="formElement" type="password" placeholder="Password" name="password" onChange={(e) => setPassword(e.target.value)}/>
-                
-                <button type='button' disabled={!validateForm()} onClick={handleSubmit()} className='formElement button'>Login</button>
-            </form>
+  const renderForm = (
+    
+    <div>
+        <form onSubmit={handleSubmit}>
+        <div>
+            {renderErrorMessage("user")}
+            <input type="text" placeholder="username" name="user" required/>
         </div>
-    )
+        <br/>
+        <div>
+            {renderErrorMessage("pass")}
+            <input type="password" placeholder="password" name="pass" required/>
+        </div>
+        <br/>
+        <div>
+            <button type="submit" class="button">Login</button>
+        </div>
+        </form>
+    </div>
+    
+  );
+
+  return (
+    <dic>
+      <div>
+        <br/><br/>
+        <div>Sign In</div>
+        {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
+      </div>
+    </dic>
+  );
 }
+
+export default Login;
