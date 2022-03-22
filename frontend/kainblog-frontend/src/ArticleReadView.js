@@ -4,6 +4,8 @@ import {Route, Link, Routes, useParams} from 'react-router-dom';
 import Artikel from  './artikel';
 import React, {Component, Fragment, useEffect, useState} from 'react';
 import DOMPurify from 'dompurify'
+import { connectionInfo } from './configs';
+import axios from 'axios';
 
 function ArticleView() {
     const params = useParams();
@@ -11,7 +13,7 @@ function ArticleView() {
     
     
     const articleData = () => {
-        fetch(`http://localhost:8080/article/${params.guid}`)
+        axios.get(connectionInfo + `article/${params.guid}`)
         .then((res) => res.json())
         .then((data) => setArticle(data))
     };

@@ -10,6 +10,7 @@ import ArticleView from './ArticleReadView';
 import Login from './Login';
 import Profile from './Profile';
 
+
 //var XMLParser = require('react-xml-parser');
 
 function App() {
@@ -22,16 +23,20 @@ return (
       
       <Router>
         <ArticleNav />
-        
+        <div className="contentContainer">
         <Routes>
           <Route path="/" element={ArticleList()} />
           <Route path="/login" element={<Login />}/>
           <Route path="/users/:username" element={<Profile />}/>
           <Route path="/article/new" element={<EditorView />}/>
           <Route path="/article/edit/:guid" element={<EditorView />} />
-          <Route path={"/article/:guid"} element={<ArticleView />}/>    
+          <Route path={"/article/:guid"} element={<ArticleView />}/>   
+          <Route path="/login" element={Login()}/>
         </Routes>
-      </Router>
+      
+        </div>  
+      </Router>  
+        
     </div>
 );
 }

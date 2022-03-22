@@ -3,10 +3,11 @@ import './artikel.css'
 import {Route, Link, Routes} from 'react-router-dom';
 import Artikel from  './artikel';
 import React, {Component, useEffect, useState} from 'react';
+import { connectionInfo } from './configs';
 
 
 function ArticleList(){
-  const RSS_URL = `http://localhost:8080/rss/feed/`;
+  const RSS_URL = connectionInfo + `rss/feed/`;
   const [items, setItems] = useState([]);
   useEffect(() => {
     

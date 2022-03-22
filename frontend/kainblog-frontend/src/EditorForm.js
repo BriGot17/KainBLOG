@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import {CKEditor} from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import { categoryOptions, editorConfig } from './configs'
+import { categoryOptions, connectionInfo, editorConfig } from './configs'
 import './Editor.css'
 import './Forms.css'
 import './App.css'
@@ -26,6 +26,8 @@ const Option = (props) => {
 }
 
 class ArticleForm extends React.Component {
+    
+    
     constructor(props){
         super(props);
         
@@ -48,9 +50,7 @@ class ArticleForm extends React.Component {
         if(target.type === 'file'){
             event.preventDefault()
             alert(this.fileInput.current.files[0])
-            this.setState({
-                [name]: this.fileInput.current.files[0]
-            });
+            this.state.image = event.target.files[0];
         } else{
             event.preventDefault()
             this.setState({
@@ -68,23 +68,26 @@ class ArticleForm extends React.Component {
         json.category = values
         //console.log(JSON.stringify(json))
        
-        
+        const formData = new FormData();
+            
+            formData.append("title", this.state.title);
+            formData.append("description", this.state.description);
+            formData.append("text", this.state.text);
+            formData.append("category", json.category);
+            if(this.image != null){
+                formData.append("picture", this.state.image)
+            }
+            const headers = {'Content-Type': 'multipart/form-data'};
+              
        console.log(this.state.articleId != null);
         if(this.state.articleId != null){
             
-            const headers = {'Content-Type': 'application/json'};
-              
-            axios.patch("http://localhost:8080/article/edit", JSON.stringify(json), {headers})
+            axios.patch(connectionInfo + "article/edit", formData, {headers})
                 .then(response => alert(response.status));
         }
         else{
-            const reqOptions = {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                data: JSON.stringify(json)
-            };
-            const headers = {'Content-Type': 'application/json'};
-            axios.post("http://localhost:8080/article/new", JSON.stringify(json), {headers})
+            
+            axios.post(connectionInfo + "article/new", formData, {headers})
                 .then(response => alert(response.status));
         }
     }
