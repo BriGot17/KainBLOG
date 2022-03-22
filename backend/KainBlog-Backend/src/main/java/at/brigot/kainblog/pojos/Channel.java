@@ -232,4 +232,70 @@ public class Channel implements Serializable {
         writer.println();
         writer.println("</rss>");
     }
+    public String render() {
+        //writer.println("<rss version=\"0.91\">");
+        String rss = "";
+        rss += String.format("<rss version=\"%s\">",version);
+        rss+="\n\t<channel>";
+        rss+="\n\t\t<title>" + title + "</title>";
+        rss+="\n\t\t<description>" + this.description + "</description>";
+        rss+="\n\t\t<link>" + this.link + "</link>";
+        rss+="\n\t\t<language>" +this.language + "</language>";
+
+        if(this.rating != null){
+            rss+= "\n\t<rating>" + this.rating +"</rating>";
+        }
+        if(this.copyright != null){
+            rss+= "\n\t<copyright>" + this.copyright + "</copyright>";
+        }
+
+        if(this.pubDate != null){
+            rss+= "\n\t<pubDate>" + this.pubDate + "</pubDate>\n";
+        }
+
+        if(this.lastBuildDate != null){
+            rss += "\n\t<lastBuildDate>" + this.lastBuildDate + "</lastBuildDate>";
+        }
+
+        if(this.docs != null){
+            rss += "\n\t<docs>" + this.docs + "</docs>";
+        }
+
+        if(this.managingEditor != null){
+            rss += "\n\t<managingEditor>" + this.managingEditor + "</managingEditor>";
+        }
+
+        if(this.webMaster != null){
+            rss += "\n\t<webMaster>" + this.webMaster + "</webMaster>\n";
+        }
+
+
+        String[] skipDays = this.findSkipDays();
+        if (skipDays.length > 0) {
+            rss+= "\t\t<skipDays>";
+
+            for(int i = 0; i < skipDays.length; ++i) {
+                rss += "\t\t\t<skipDay>" + skipDays[i] + "</skipDay>";
+            }
+            rss +="\t\t</skipDays>";
+        }
+
+        String[] skipHours = this.findSkipHours();
+        if (skipHours.length > 0) {
+            rss+= "\t\t<skipHours>";
+
+            for(int i = 0; i < skipHours.length; ++i) {
+                rss += "\t\t\t<skipHour>" + skipHours[i] + "</skipHour>";
+            }
+            rss +="\t\t</skipHours>";
+        }
+
+        Item[] items = this.findItems();
+
+        for(int i = 0; i < items.length; ++i) {
+            rss += items[i].render() + "\n";
+        }
+        rss += "\t</channel>\n</rss>";
+        return rss;
+    }
 }

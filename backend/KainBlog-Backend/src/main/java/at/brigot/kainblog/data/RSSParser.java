@@ -4,6 +4,8 @@ package at.brigot.kainblog.data;
 import at.brigot.kainblog.pojos.Channel;
 import at.brigot.kainblog.pojos.Article;
 import at.brigot.kainblog.pojos.Item;
+import at.brigot.kainblog.pojos.User;
+import org.bson.io.BasicOutputBuffer;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -43,7 +45,6 @@ public class RSSParser {
     }
 
     public String parseToXMLFile(List<Article> articles) {
-        String raw = "";
         Channel channel = new Channel();
         channel.setTitle("Kainblog-RSS");
         channel.setLink("www.placeholder.com");
@@ -53,27 +54,17 @@ public class RSSParser {
         articles.stream().forEach(a -> {
                     channel.addItem(parseArticleToElement(a));
                 });
-        try{
-            OutputStream out = new FileOutputStream("feed.xml");
-            channel.render(out);
-            out.close();
-            BufferedReader in = new BufferedReader(new FileReader("feed.xml"));
-            raw = in.lines().collect(Collectors.joining());
-            in.close();
-        } catch (FileNotFoundException e ) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return raw;
+
+        return channel.render();
     }
 
     public static void main(String[] args) {
         List<Article> articles = new ArrayList<>();
         List<String> category = new ArrayList<>();
         category.add("Test");
-        articles.add(new Article("1","Test",category, "test2", "test3","PIC"));
+        articles.add(new Article("1","Test", new User("gotped17", "Peter Gottlieb", "ABCDE", List.of("ADMIN"), "hehe"), category, "test2", "test3","PIC"));
         RSSParser parser = new RSSParser();
-        parser.parseToXMLFile(articles);
+        System.out.println(parser.parseToXMLFile(articles));
+
     }
 }

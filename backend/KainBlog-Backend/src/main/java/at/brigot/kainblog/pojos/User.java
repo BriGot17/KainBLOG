@@ -19,7 +19,7 @@ import static java.util.Objects.requireNonNull;
 public class User{
     private static final long serialVersionUID = 2396654715019746670L;
 
-    private String id;
+
     private String username; //Kurzzeichen z.B. gotped17
     private String name;
     private String password;

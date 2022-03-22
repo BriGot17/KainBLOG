@@ -58,9 +58,9 @@ public class Item implements Serializable {
 
     void render(PrintWriter writer) {
 
-        writer.println("    <item>");
+        writer.println("<item>");
 
-        writer.print("      <title>");
+        writer.print("\t<title>");
         writer.print(title);
         writer.println("</title>");
 
@@ -86,6 +86,17 @@ public class Item implements Serializable {
 
         writer.println("    </item>");
 
+    }
+    String render(){
+        String rss = "\t\t<item>";
+        rss += "\t\t\t<title>" + title + "</title>\n";
+        rss+= "\t\t\t<link>" + link + "</link>\n";
+        rss+= "\t\t\t<description>" + description + "</link>\n";
+        rss += "\t\t\t<category>" + category + "</category>\n";
+        rss += "\t\t\t<guid>" + guid + "</guid>\n";
+        rss += "\t\t\t<enclosure url=" + picture + "/>\n";
+        rss += "\t\t</item>";
+        return rss;
     }
 
 }
