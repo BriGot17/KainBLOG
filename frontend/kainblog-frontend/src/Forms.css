@@ -9,7 +9,7 @@ input {
     font-size: 1.1em;
 }
 
-input[type=text] {
+input[type=text],[type=password] {
     border: solid #a1a0a0 2px;
     border-radius: 8px;
     outline-color: #a1a0a0;
@@ -24,6 +24,7 @@ textarea{
     border-radius: 8px;
     padding-left: 0.6em;
 }
+
 input[type=button] {
     border: none;
     color: white;
@@ -47,6 +48,10 @@ input[type=button] {
     cursor: pointer;
     background-color: #72326c;
 }
+
+button[type="submit"]:hover {
+    background: #944b8d;
+  }
 
 .fileInput{
     position: relative;

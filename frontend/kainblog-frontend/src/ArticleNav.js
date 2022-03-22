@@ -14,7 +14,13 @@ class ArticleNav extends React.Component{
         return (
             <div className='sideNavContainer'>
                 <div className='buttonContainer'>
-                    
+
+                        <Link className='navLink' to={'login'}>
+                            <button className='button navButton'>
+                                Login
+                            </button>
+                        </Link>
+
                         <Link className='navLink' to={'article/new'}>
                             <button className='button navButton'>
                                 Add new Article 
@@ -26,7 +32,12 @@ class ArticleNav extends React.Component{
                                 Hauptseite
                             </button>
                         </Link>
-                    
+
+                        <Link className='navLink' to={'Profil'}>
+                            <button className='button navButton'>
+                                profile
+                            </button>
+                        </Link>
                 </div>
             </div>
         )
