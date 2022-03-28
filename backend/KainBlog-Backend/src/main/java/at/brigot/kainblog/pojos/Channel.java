@@ -132,162 +132,62 @@ public class Channel implements Serializable {
         this.render((PrintWriter)writer, (String)null);
     }
 
-    public void render(PrintWriter writer, String encoding) {
-        //writer.println("<rss version=\"0.91\">");
-        writer.println(String.format("<rss version=\"%s\">",version));
-        writer.println();
-        writer.println("  <channel>");
-        writer.println();
-        writer.print("    <title>");
-        writer.print(this.title);
-        writer.println("</title>");
-        writer.print("    <description>");
-        writer.print(this.description);
-        writer.println("</description>");
-        writer.print("    <link>");
-        writer.print(this.link);
-        writer.println("</link>");
-        writer.print("    <language>");
-        writer.print(this.language);
-        writer.println("</language>");
-        if (this.rating != null) {
-            writer.print("    <rating>");
-            writer.print(this.rating);
-            writer.println("</rating>");
-        }
-
-        if (this.copyright != null) {
-            writer.print("    <copyright>");
-            writer.print(this.copyright);
-            writer.print("</copyright>");
-        }
-
-        if (this.pubDate != null) {
-            writer.print("    <pubDate>");
-            writer.print(this.pubDate);
-            writer.println("</pubDate>");
-        }
-
-        if (this.lastBuildDate != null) {
-            writer.print("    <lastBuildDate>");
-            writer.print(this.lastBuildDate);
-            writer.println("</lastBuildDate>");
-        }
-
-        if (this.docs != null) {
-            writer.print("    <docs>");
-            writer.print(this.docs);
-            writer.println("</docs>");
-        }
-
-        if (this.managingEditor != null) {
-            writer.print("    <managingEditor>");
-            writer.print(this.managingEditor);
-            writer.println("</managingEditor>");
-        }
-
-        if (this.webMaster != null) {
-            writer.print("    <webMaster>");
-            writer.print(this.webMaster);
-            writer.println("</webMaster>");
-        }
-
-        writer.println();
-
-        String[] skipDays = this.findSkipDays();
-        if (skipDays.length > 0) {
-            writer.println("    <skipDays>");
-
-            for(int i = 0; i < skipDays.length; ++i) {
-                writer.print("      <skipDay>");
-                writer.print(skipDays[i]);
-                writer.println("</skipDay>");
-            }
-
-            writer.println("    </skipDays>");
-        }
-
-        String[] skipHours = this.findSkipHours();
-        if (skipHours.length > 0) {
-            writer.println("    <skipHours>");
-
-            for(int i = 0; i < skipHours.length; ++i) {
-                writer.print("      <skipHour>");
-                writer.print(skipHours[i]);
-                writer.println("</skipHour>");
-            }
-
-            writer.println("    </skipHours>");
-            writer.println();
-        }
-
-        Item[] items = this.findItems();
-
-        for(int i = 0; i < items.length; ++i) {
-            items[i].render(writer);
-            writer.println();
-        }
-
-        writer.println("  </channel>");
-        writer.println();
-        writer.println("</rss>");
-    }
     public String render() {
         //writer.println("<rss version=\"0.91\">");
         String rss = "";
         rss += String.format("<rss version=\"%s\">",version);
-        rss+="\n\t<channel>";
-        rss+="\n\t\t<title>" + title + "</title>";
-        rss+="\n\t\t<description>" + this.description + "</description>";
-        rss+="\n\t\t<link>" + this.link + "</link>";
-        rss+="\n\t\t<language>" +this.language + "</language>";
+        rss+="\n\n    <channel>";
+        rss+="\n        <title>" + title + "</title>";
+        rss+="\n        <description>" + this.description + "</description>";
+        rss+="\n    <link>" + this.link + "</link>";
+        rss+="\n    <language>" +this.language + "</language>";
 
         if(this.rating != null){
-            rss+= "\n\t<rating>" + this.rating +"</rating>";
+            rss+= "\n    <rating>" + this.rating +"</rating>";
         }
         if(this.copyright != null){
-            rss+= "\n\t<copyright>" + this.copyright + "</copyright>";
+            rss+= "\n    <copyright>" + this.copyright + "</copyright>";
         }
 
         if(this.pubDate != null){
-            rss+= "\n\t<pubDate>" + this.pubDate + "</pubDate>\n";
+            rss+= "\n    <pubDate>" + this.pubDate + "</pubDate>\n";
         }
 
         if(this.lastBuildDate != null){
-            rss += "\n\t<lastBuildDate>" + this.lastBuildDate + "</lastBuildDate>";
+            rss += "\n    <lastBuildDate>" + this.lastBuildDate + "</lastBuildDate>";
         }
 
         if(this.docs != null){
-            rss += "\n\t<docs>" + this.docs + "</docs>";
+            rss += "\n    <docs>" + this.docs + "</docs>";
         }
 
         if(this.managingEditor != null){
-            rss += "\n\t<managingEditor>" + this.managingEditor + "</managingEditor>";
+            rss += "\n    <managingEditor>" + this.managingEditor + "</managingEditor>";
         }
 
         if(this.webMaster != null){
-            rss += "\n\t<webMaster>" + this.webMaster + "</webMaster>\n";
+            rss += "\n    <webMaster>" + this.webMaster + "</webMaster>\n";
         }
 
 
         String[] skipDays = this.findSkipDays();
         if (skipDays.length > 0) {
-            rss+= "\t\t<skipDays>";
+            rss+= "\n        <skipDays>";
 
             for(int i = 0; i < skipDays.length; ++i) {
-                rss += "\t\t\t<skipDay>" + skipDays[i] + "</skipDay>";
+                rss += "            <skipDay>" + skipDays[i] + "</skipDay>";
             }
-            rss +="\t\t</skipDays>";
+            rss +="        </skipDays>";
         }
 
         String[] skipHours = this.findSkipHours();
         if (skipHours.length > 0) {
-            rss+= "\t\t<skipHours>";
+            rss+= "\n    <skipHours>";
 
             for(int i = 0; i < skipHours.length; ++i) {
-                rss += "\t\t\t<skipHour>" + skipHours[i] + "</skipHour>";
+                rss += "            <skipHour>" + skipHours[i] + "</skipHour>";
             }
-            rss +="\t\t</skipHours>";
+            rss +="        </skipHours>";
         }
 
         Item[] items = this.findItems();
@@ -295,7 +195,7 @@ public class Channel implements Serializable {
         for(int i = 0; i < items.length; ++i) {
             rss += items[i].render() + "\n";
         }
-        rss += "\t</channel>\n</rss>";
+        rss += " \n   </channel>\n\n</rss>";
         return rss;
     }
 }

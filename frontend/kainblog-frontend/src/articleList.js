@@ -1,20 +1,19 @@
 import './App.css'
 import './artikel.css'
-import {Route, Link, Routes} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import Artikel from  './artikel';
-import React, {Component, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { connectionInfo } from './configs';
-
+import PublicService  from './services/PublicService';
 
 function ArticleList(){
-  const RSS_URL = connectionInfo + `rss/feed/`;
   const [items, setItems] = useState([]);
   useEffect(() => {
     
-
     const getRss = async (e) => {
-    const res = await fetch(RSS_URL);
-    const contents = await res.text();
+    const res = await PublicService.getArticles();
+    const contents = res.data;
+
     const feed = new window.DOMParser().parseFromString(contents, "text/xml");
     const items = feed.querySelectorAll("item");
 

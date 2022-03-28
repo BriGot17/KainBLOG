@@ -23,10 +23,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin(origins = {"*"}, methods = {RequestMethod.POST, RequestMethod.GET, RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.PUT})
 public class AuthController {
     @Autowired
     private JwtUtil jwtUtil;
@@ -39,16 +41,19 @@ public class AuthController {
 
     @PostMapping("/signin")
     public ResponseEntity<JwtResponse> generateJwtToken(@RequestBody JwtRequest jwtRequest) {
+        System.out.println("Signin request");
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
-        } catch (DisabledException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-            //throw new DisabledUserException("User Inactive");
         } catch (BadCredentialsException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            System.out.println("Signin failed1");
+            return ResponseEntity.status(401).build();
             //throw new InvalidUserCredentialsException("Invalid Credentials");
 
+        } catch (DisabledException e) {
+            System.out.println("Signin failed2");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            //throw new DisabledUserException("User Inactive");
         }
         UserDetails userDetails = userAuthService.loadUserByUsername(jwtRequest.getUsername());
         String username = userDetails.getUsername();
@@ -60,11 +65,14 @@ public class AuthController {
         user.setPassword(userpwd);
         user.setRoles(roles);
         String token = jwtUtil.generateToken(user);
+        System.out.println("Signin success");
         return new ResponseEntity(new JwtResponse(token), HttpStatus.OK);
     }
 
     @PostMapping("/signup")
+
     public ResponseEntity<String> signup(@RequestBody User user) {
+        System.out.println("Signup request");
         UserVo u = userAuthService.getUserVoByUsername(user.getUsername());
 
         if (u == null) {
@@ -77,12 +85,14 @@ public class AuthController {
     @PreAuthorize("hasAnyRole('ADMIN', 'PUBLISHER', 'USER')")
     @GetMapping("/users/{username}")
     public User userByUsername(@PathVariable("username") String username){
+        System.out.println("OneUserRequest");
         return userAuthService.getUserByUsername(username);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN', 'PUBLISHER', 'USER')")
     @GetMapping("/users/current")
     public User getCurrent(@RequestBody String token){
+        System.out.println("Current user request");
         return userAuthService.getUserByUsername(jwtUtil.getUser(token).getUsername());
     }
 }

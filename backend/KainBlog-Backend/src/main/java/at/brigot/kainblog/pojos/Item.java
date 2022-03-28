@@ -88,14 +88,14 @@ public class Item implements Serializable {
 
     }
     String render(){
-        String rss = "\t\t<item>";
-        rss += "\t\t\t<title>" + title + "</title>\n";
-        rss+= "\t\t\t<link>" + link + "</link>\n";
-        rss+= "\t\t\t<description>" + description + "</link>\n";
-        rss += "\t\t\t<category>" + category + "</category>\n";
-        rss += "\t\t\t<guid>" + guid + "</guid>\n";
-        rss += "\t\t\t<enclosure url=" + picture + "/>\n";
-        rss += "\t\t</item>";
+        String rss = "\n\n        <item>\n";
+        rss += "            <title>" + title + "</title>\n";
+        rss+= "             <link>" + link + "</link>\n";
+        rss+= "             <description>" + description + "</description>\n";
+        rss += "             <category>" + category + "</category>\n";
+        rss += "             <guid>" + guid + "</guid>\n";
+        rss += "             <enclosure url=\"" + picture + "\"/>\n";
+        rss += "        </item>";
         return rss;
     }
 

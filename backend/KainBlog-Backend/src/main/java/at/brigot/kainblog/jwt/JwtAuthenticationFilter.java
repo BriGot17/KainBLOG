@@ -28,7 +28,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         String header = request.getHeader("Authorization");
-        if (header == null || !header.startsWith("Bearer")) {
+        if(header == null){
+            throw new NullPointerException("No headers");
+        }
+        if (!header.startsWith("Bearer")) {
             throw new JwtTokenMissingException("No JWT token found in the request headers");
         }
         String token = header.substring(7);
