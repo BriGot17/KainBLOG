@@ -48,6 +48,7 @@ public class UserAuthService implements UserDetailsService {
             UserVo vo = new UserVo(user.getUsername(), user.getPassword(), roles);
             return vo;
         }
+        System.out.println("uservo null");
         return null;
 
     }

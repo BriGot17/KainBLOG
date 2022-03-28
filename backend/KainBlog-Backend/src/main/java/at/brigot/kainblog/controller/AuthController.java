@@ -23,12 +23,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins = {"*"}, methods = {RequestMethod.POST, RequestMethod.GET, RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.PUT})
+@CrossOrigin(origins = {"*"}, methods = {RequestMethod.GET,RequestMethod.HEAD,RequestMethod.OPTIONS,RequestMethod.PUT,RequestMethod.POST,RequestMethod.PATCH,RequestMethod.DELETE,RequestMethod.TRACE})
 public class AuthController {
     @Autowired
     private JwtUtil jwtUtil;
@@ -43,8 +44,8 @@ public class AuthController {
     public ResponseEntity<JwtResponse> generateJwtToken(@RequestBody JwtRequest jwtRequest) {
         System.out.println("Signin request");
         try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
+            UsernamePasswordAuthenticationToken upa = new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword());
+            authenticationManager.authenticate(upa);
         } catch (BadCredentialsException e) {
             System.out.println("Signin failed1");
             return ResponseEntity.status(401).build();
@@ -66,6 +67,7 @@ public class AuthController {
         user.setRoles(roles);
         String token = jwtUtil.generateToken(user);
         System.out.println("Signin success");
+
         return new ResponseEntity(new JwtResponse(token), HttpStatus.OK);
     }
 
@@ -91,8 +93,18 @@ public class AuthController {
 
     @PreAuthorize("hasAnyRole('ADMIN', 'PUBLISHER', 'USER')")
     @GetMapping("/users/current")
-    public User getCurrent(@RequestBody String token){
+    public User getCurrent(@RequestHeader Map<String, String> headers){
+        String token = headers.get("Authorization");
         System.out.println("Current user request");
+        System.out.println(token);
+        System.out.println(headers.toString());
+        System.out.println(jwtUtil.getUser(token));
         return userAuthService.getUserByUsername(jwtUtil.getUser(token).getUsername());
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'PUBLISHER', 'USER')")
+    @PostMapping("/dummy")
+    public String dummyPost(){
+        return "Dummy test works";
     }
 }

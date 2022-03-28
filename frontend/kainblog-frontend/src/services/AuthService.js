@@ -1,6 +1,6 @@
 import axios from "axios";
 import { connectionInfo } from "../configs";
-import authHeader from "./authHeader";
+import { buildEssentialHeaders, buildAuthHeader } from "./headerBuilder"
 const API_URL = connectionInfo;
 class AuthService {
 
@@ -29,19 +29,21 @@ class AuthService {
       password
     });
   }
-  getCurrentUser() {
-    const headers = authHeader();
-  
-    return axios.get(
-      API_URL + "users/current", headers, headers
+  async getCurrentUser() {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return await axios.get(
+      API_URL + "users/current",  {
+        headers: {
+          Authorization: `Bearer ${user.token}`
+        }
+      }
     ).then(res => {
       console.log(res.data)
     })
-    return JSON.parse(localStorage.getItem('user'));;
   }
 
   checkAuthentication(){
-    return authHeader() != {} ? true : false;
+    return buildAuthHeader != {} ? true : false;
   }
 }
 export default new AuthService();

@@ -24,7 +24,7 @@ import static org.springframework.http.MediaType.MULTIPART_FORM_DATA;
 
 @RequestMapping(value = "/article")
 @RestController
-@CrossOrigin(origins= {"*"}, methods = {RequestMethod.POST, RequestMethod.GET, RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.PUT, RequestMethod.PATCH})
+@CrossOrigin(origins = {"*"}, methods = {RequestMethod.GET,RequestMethod.HEAD,RequestMethod.OPTIONS,RequestMethod.PUT,RequestMethod.POST,RequestMethod.PATCH,RequestMethod.DELETE,RequestMethod.TRACE})
 public class ArticleController {
 
     @Autowired

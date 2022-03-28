@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@CrossOrigin(origins = {"*"}, methods = {RequestMethod.POST, RequestMethod.GET, RequestMethod.OPTIONS, RequestMethod.HEAD, RequestMethod.PUT})
+@CrossOrigin(origins = {"*"}, methods = {RequestMethod.GET,RequestMethod.HEAD,RequestMethod.OPTIONS,RequestMethod.PUT,RequestMethod.POST,RequestMethod.PATCH,RequestMethod.DELETE,RequestMethod.TRACE})
 @RequestMapping(value = "/rss", produces = "application/xml")
 public class RSSController {
 

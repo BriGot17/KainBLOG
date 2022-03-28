@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -27,7 +28,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        String header = request.getHeader("Authorization");
+        String header = request.getHeader("authorization");
         if(header == null){
             throw new NullPointerException("No headers");
         }
@@ -39,10 +40,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         jwtUtil.validateToken(token);
         UserVo userVo = jwtUtil.getUser(token);
         UserDetails userDetails = userAuthService.loadUserByUsername(userVo.getUsername());
+
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                 userDetails, null, userDetails.getAuthorities());
+
         usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
         if (SecurityContextHolder.getContext().getAuthentication() == null) {
+            System.out.println("no security context authentication");
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         }
         filterChain.doFilter(request, response);

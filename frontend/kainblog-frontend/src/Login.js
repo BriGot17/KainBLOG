@@ -1,7 +1,6 @@
 
 import React, { useState } from "react";
 import "./Login.css";
-import authHeader from "./services/authHeader";
 import AuthService from "./services/AuthService";
 
 function Login() {

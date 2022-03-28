@@ -1,4 +1,3 @@
-import authHeader from './authHeader.js'
 import axios from 'axios'
 import { connectionInfo } from '../configs.js'
 class PublicService {
