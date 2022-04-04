@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,9 +24,16 @@ public class JwtUtil {
             Claims body = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
             UserVo user = new UserVo();
             user.setUsername(body.getSubject());
+
             Set<String> roles = Arrays.asList(body.get("roles").toString().split(",")).stream().map(r -> new String(r))
-                    .collect(Collectors.toSet());
-            user.setRoles(roles);
+                .collect(Collectors.toSet());
+            Set<String> r2 = new HashSet<>();
+            roles.forEach(r -> {
+                r2.add(r.replace("[", "")
+                        .replace("]", "").trim());
+                });
+            user.setRoles(r2);
+            System.out.println("in getUser " + r2);
             return user;
         } catch (Exception e) {
             System.out.println(e.getMessage() + " => " + e);
@@ -35,6 +43,7 @@ public class JwtUtil {
     public String generateToken(UserVo u) {
         Claims claims = Jwts.claims().setSubject(u.getUsername());
         claims.put("roles", u.getRoles());
+        System.out.println("in generateToken " + u.getRoles());
         long nowMillis = System.currentTimeMillis();
         long expMillis = nowMillis + tokenValidity;
         Date exp = new Date(expMillis);

@@ -3,6 +3,7 @@ package at.brigot.kainblog.config;
 import at.brigot.kainblog.jwt.JwtAuthenticationFilter;
 import at.brigot.kainblog.service.UserAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.RegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -37,9 +38,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private JwtAuthenticationFilter jwtAuthenticationFilter;
     @Autowired
     private UserAuthenticationEntryPoint authenticationEntryPoint;
+
+    @Value("${spring.websecurity.debug:true}")
+    boolean webSecurityDebug;
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/signin", "/signup", "/rss/feed", "/article/{guid}");
+        web.debug(webSecurityDebug);
 
     }
     @Autowired
