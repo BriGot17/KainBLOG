@@ -1,9 +1,10 @@
-package at.brigot.kainblog.jwt;
+package at.brigot.kainblog.pojos;
 
 import lombok.Data;
 
 @Data
-public class JwtRequest {
+public class LoginUser {
+
     private String username;
     private String password;
 }

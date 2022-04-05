@@ -5,22 +5,16 @@ import at.brigot.kainblog.data.ArticleRepository;
 import at.brigot.kainblog.data.UserRepository;
 import at.brigot.kainblog.pojos.Article;
 import at.brigot.kainblog.pojos.User;
-import at.brigot.kainblog.service.UserAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.util.BsonUtils;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
-import static org.springframework.http.MediaType.MULTIPART_FORM_DATA;
 
 @RequestMapping(value = "/article")
 @RestController
