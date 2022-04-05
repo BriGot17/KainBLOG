@@ -4,6 +4,7 @@ package at.brigot.kainblog.controller;
 import at.brigot.kainblog.data.ArticleRepository;
 import at.brigot.kainblog.data.UserRepository;
 import at.brigot.kainblog.pojos.Article;
+import at.brigot.kainblog.pojos.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
