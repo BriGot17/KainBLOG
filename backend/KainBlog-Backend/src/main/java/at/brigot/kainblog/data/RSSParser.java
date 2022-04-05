@@ -4,16 +4,12 @@ package at.brigot.kainblog.data;
 import at.brigot.kainblog.pojos.Channel;
 import at.brigot.kainblog.pojos.Article;
 import at.brigot.kainblog.pojos.Item;
-import at.brigot.kainblog.pojos.User;
-import org.bson.io.BasicOutputBuffer;
 
-import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
 /**
  * Parses values into an RSS-Xml element
