@@ -4,9 +4,7 @@ import at.brigot.kainblog.pojos.Article;
 
 
 import java.util.List;
-import java.util.Optional;
 
-import at.brigot.kainblog.pojos.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;

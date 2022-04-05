@@ -1,17 +1,20 @@
 package at.brigot.kainblog.data;
 
 
-import at.brigot.kainblog.pojos.*;
-import org.bson.io.BasicOutputBuffer;
 
-import java.io.*;
+import at.brigot.kainblog.pojos.*;
+
+import at.brigot.kainblog.pojos.Channel;
+import at.brigot.kainblog.pojos.Article;
+import at.brigot.kainblog.pojos.Item;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Parses values into an RSS-Xml element
@@ -55,6 +58,7 @@ public class RSSParser {
 
         return channel.render();
     }
+
 
     public static void main(String[] args) {
         List<Article> articles = new ArrayList<>();
