@@ -4,6 +4,7 @@ import at.brigot.kainblog.jwt.exception.JwtTokenMissingException;
 import at.brigot.kainblog.service.UserAuthService;
 import at.brigot.kainblog.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.saml2.Saml2RelyingPartyProperties;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -51,10 +52,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-        if (SecurityContextHolder.getContext().getAuthentication() == null) {
-            System.out.println("no security context authentication");
-            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-        }
         filterChain.doFilter(request, response);
+        System.out.println("After filterchain" + userDetails.getAuthorities());
     }
 }

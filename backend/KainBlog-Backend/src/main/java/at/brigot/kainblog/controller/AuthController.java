@@ -4,7 +4,7 @@ package at.brigot.kainblog.controller;
 import at.brigot.kainblog.data.ArticleRepository;
 import at.brigot.kainblog.data.RSSParser;
 import at.brigot.kainblog.jwt.JwtRequest;
-import at.brigot.kainblog.jwt.JwtResponse;
+import at.brigot.kainblog.security.JwtResponse;
 import at.brigot.kainblog.jwt.JwtUtil;
 import at.brigot.kainblog.jwt.exception.DisabledUserException;
 import at.brigot.kainblog.jwt.exception.InvalidUserCredentialsException;
@@ -68,7 +68,7 @@ public class AuthController {
         String token = jwtUtil.generateToken(user);
         System.out.println("Signin success");
 
-        return new ResponseEntity(new JwtResponse(token), HttpStatus.OK);
+        return new ResponseEntity(new JwtResponse(token, user.getUsername(), user.getRoles().stream().toList()), HttpStatus.OK);
     }
 
     @PostMapping("/signup")
@@ -91,13 +91,12 @@ public class AuthController {
         return userAuthService.getUserByUsername(username);
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'PUBLISHER', 'USER')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping("/users/current")
     public User getCurrent(@RequestHeader Map<String, String> headers){
         String token = headers.get("Authorization");
         System.out.println("Current user request");
         System.out.println(token);
-        System.out.println(headers.toString());
         System.out.println(jwtUtil.getUser(token));
         return userAuthService.getUserByUsername(jwtUtil.getUser(token).getUsername());
     }

@@ -5,12 +5,13 @@ import at.brigot.kainblog.jwt.exception.JwtTokenMissingException;
 import at.brigot.kainblog.vo.UserVo;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -33,7 +34,8 @@ public class JwtUtil {
                         .replace("]", "").trim());
                 });
             user.setRoles(r2);
-            System.out.println("in getUser " + r2);
+            //System.out.println("in getUser " + r2);
+            //System.out.println("in getUser 2 " + body);
             return user;
         } catch (Exception e) {
             System.out.println(e.getMessage() + " => " + e);
@@ -43,13 +45,14 @@ public class JwtUtil {
     public String generateToken(UserVo u) {
         Claims claims = Jwts.claims().setSubject(u.getUsername());
         claims.put("roles", u.getRoles());
-        System.out.println("in generateToken " + u.getRoles());
+
         long nowMillis = System.currentTimeMillis();
         long expMillis = nowMillis + tokenValidity;
         Date exp = new Date(expMillis);
         return Jwts.builder().setClaims(claims).setIssuedAt(new Date(nowMillis)).setExpiration(exp)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret).compact();
     }
+    
     public void validateToken(final String token) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
