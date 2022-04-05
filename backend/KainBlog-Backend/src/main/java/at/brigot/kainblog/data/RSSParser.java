@@ -53,14 +53,4 @@ public class RSSParser {
 
         return channel.render();
     }
-
-    public static void main(String[] args) {
-        List<Article> articles = new ArrayList<>();
-        List<String> category = new ArrayList<>();
-        category.add("Test");
-        articles.add(new Article("1","Test", new User("gotped17", "Peter Gottlieb", "ABCDE", List.of("ADMIN"), "hehe"), category, "test2", "test3","PIC"));
-        RSSParser parser = new RSSParser();
-        System.out.println(parser.parseToXMLFile(articles));
-
-    }
 }

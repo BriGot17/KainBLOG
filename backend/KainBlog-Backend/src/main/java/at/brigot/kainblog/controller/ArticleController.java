@@ -43,7 +43,7 @@ public class ArticleController {
         articleRepo.save(article);
         return new ResponseEntity<>(article, HttpStatus.OK);
     }
-
+/*
     @PreAuthorize("hasAnyRole('ADMIN', 'PUBLISHER', 'USER')")
     @GetMapping("/get/{username}")
     public ResponseEntity<List<Article>> articlesByUser(@PathVariable("username") String username){
@@ -65,7 +65,7 @@ public class ArticleController {
         articleRepo.save(article);
         return new ResponseEntity<>(article, HttpStatus.OK);
     }
-
+*/
 
     @GetMapping(path = "/{guid}")
     public ResponseEntity<Article> getArticle(@PathVariable("guid") String guid){
