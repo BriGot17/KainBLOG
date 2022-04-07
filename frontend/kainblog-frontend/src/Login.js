@@ -6,10 +6,11 @@ import Modal from './modal';
 
 function Login() {
 
-  const [errorMessages, setErrorMessages] = useState({});
+  
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-
+  const [errorMessages, setErrorMessages] = useState({});
+  
   const errors = {
     user: "invalid username",
     pass: "invalid password"
@@ -34,7 +35,7 @@ function Login() {
       })
       
     }
-    console.log(AuthService.checkAuthentication()) 
+  
   };
 
   const renderErrorMessage = (name) =>
@@ -72,6 +73,7 @@ function Login() {
         
         {isSubmitted ? <div>User is successfully logged in</div> : AuthService.checkAuthentication() ? <div>User is successfully logged in</div> : renderForm}
         {isOpen && <Modal setIsOpen={setIsOpen} event="login success" />}
+        
       </div>
     </div>
   );

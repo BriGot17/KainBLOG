@@ -3,6 +3,7 @@ package at.brigot.kainblog.controller;
 import at.brigot.kainblog.config.TokenProvider;
 import at.brigot.kainblog.data.UserRepository;
 import at.brigot.kainblog.pojos.AuthToken;
+import at.brigot.kainblog.pojos.JwtResponse;
 import at.brigot.kainblog.pojos.LoginUser;
 import at.brigot.kainblog.pojos.User;
 import at.brigot.kainblog.service.UserService;
@@ -18,7 +19,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -49,7 +52,14 @@ public class AuthenticationController {
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         final String token = jwtTokenUtil.generateToken(authentication);
-        return ResponseEntity.ok(new AuthToken(token));
+        User user = userService.findOne(loginUser.getUsername());
+
+        List<String> roles = new ArrayList<>();
+        user.getRoles().forEach(r -> {
+            roles.add(r.getName());
+        });
+        JwtResponse res = new JwtResponse(token, loginUser.getUsername(), roles);
+        return ResponseEntity.ok(res);
     }
 
     @RequestMapping(value="/signup", method = RequestMethod.POST)
@@ -70,6 +80,7 @@ public class AuthenticationController {
         String notok = "netok";
         String username = jwtTokenUtil.getUsernameFromToken(token);
         UserDetails details = userDetailsService.loadUserByUsername(username);
+        System.out.println("here");
         if(jwtTokenUtil.validateToken(token, details)){
             return ok;
         }else{

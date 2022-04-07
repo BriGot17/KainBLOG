@@ -35,13 +35,13 @@ const Modal = ({ setIsOpen, event }) => {
         <div className={styles.modal}>
           <div className={styles.modalHeader}>
             <h5 className={styles.heading}>
-                {message != "" ? "Nachricht" : error != "" ? "Fehler" : ""}</h5>
+                {message !== "" ? "Nachricht" : error !== "" ? "Fehler" : ""}</h5>
           </div>
           <button className={styles.closeBtn} onClick={() => setIsOpen(false)}>
             <RiCloseLine style={{ marginBottom: "-3px" }} />
           </button>
           <div className={styles.modalContent}>
-          {message != "" ? error : error != "" ? error : ""}
+          {message !== "" ? error : error !== "" ? error : ""}
           </div>
           <div className={styles.modalActions}>
             <div className={styles.actionsContainer}>

@@ -3,7 +3,6 @@ import './artikel.css'
 import {Link} from 'react-router-dom';
 import Artikel from  './artikel';
 import React, {useEffect, useState} from 'react';
-import { connectionInfo } from './configs';
 import PublicService  from './services/PublicService';
 
 function ArticleList(){
@@ -32,9 +31,6 @@ function ArticleList(){
   
   return (
     <div className="contentWrapper">
-      <div className="filterContainer">
-      
-      </div>
       <script></script>
 
       <div className="artikelList">

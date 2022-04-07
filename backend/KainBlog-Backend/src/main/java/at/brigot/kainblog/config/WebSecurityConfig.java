@@ -66,7 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/token/*", "/signup", "/rss/*", "article/{guid}");
+        web.ignoring().antMatchers("/token/**", "/signup", "/rss/**", "article/{guid}");
     }
 
     @Override
@@ -74,7 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable().cors().and()
                 .authorizeRequests()
-                .antMatchers("/token/*", "/signup", "/rss/*", "article/{guid}").permitAll()
+                .antMatchers("/token/**", "/signup", "/rss/**", "article/{guid}").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()

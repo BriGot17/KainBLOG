@@ -4,7 +4,7 @@ import React, {useEffect, useState} from 'react';
 //import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import ArticleEditor from './EditorForm';
 import './Editor.css'
-import {Link, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 function EditorView() {
     const params = useParams();
     const [article, setArticle] = useState(null);
@@ -32,7 +32,6 @@ function EditorView() {
 
     useEffect(() => {
         let guid = params.guid;
-        let guidExist = false;
         
         if(guid != null){
             fetchArticle();

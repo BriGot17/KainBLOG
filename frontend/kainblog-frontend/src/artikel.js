@@ -20,7 +20,6 @@ function Artikel(props){
         </div>
         <div className="descContainer">
             <p className="artikelDescription">{props.desc}</p>
-            <img src={props.img} className="artikelImage"></img>
             
         </div>
     </div>

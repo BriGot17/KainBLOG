@@ -1,20 +1,23 @@
 import './App.css';
-import {BrowserRouter as Router, Route, Link, Routes} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import EditorView from './EditorView';
 import ArticleList  from './articleList';
-import ArticleEditor from './EditorForm';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import ArticleNav from './ArticleNav';
 import ArticleView from './ArticleReadView';
 import Login from './Login';
 import Profile from './Profile';
+import AuthService from './services/AuthService';
 
 
 //var XMLParser = require('react-xml-parser');
 
 function App() {
-  
+
+  let authenticated = AuthService.checkAuthentication();
+  if(!authenticated){
+    console.log("asdf");
+    //AuthService.logout();
+  }
 return (
     <div className="App" >
       <header className="App-header">

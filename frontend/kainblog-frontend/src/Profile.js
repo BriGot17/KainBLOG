@@ -1,10 +1,7 @@
-import {Route, Link, Routes, useParams} from 'react-router-dom';
 import ArticleList from './articleList';
 import './Profile.css'
 
 function Profile() {
-
-    const params = useParams();
 
     return (
         <div class="profilecontainer">

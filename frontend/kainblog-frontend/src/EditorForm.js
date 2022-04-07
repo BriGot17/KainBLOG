@@ -2,14 +2,14 @@
 import React, { useState } from 'react'
 import {CKEditor} from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import { categoryOptions, connectionInfo, editorConfig } from './configs'
+import { categoryOptions} from './configs'
 import './Editor.css'
 import './Forms.css'
 import './App.css'
-import axios from 'axios'
 import {default as ReactSelect, components} from "react-select"
 import ArticleService from "./services/ArticleService"
 import Modal from './modal';
+
 
 const Option = (props) => {
     return (
@@ -33,76 +33,50 @@ const ArticleForm = (props) => {
         const [desc, setDesc] = useState(props.article.desc != null ? props.article.desc: "")
         const [category, setCategory] = useState(props.article.category != null ? props.article.category: [])
         const [text, setText]  = useState(props.article.text != null ? props.article.text : "Hello")
+        const [status, setStatus] = useState("")
 
-        const [state, setState] = useState(props.artile != null ? props.article: {text: ""});
-        
-        
-    
     
     const handleSelectChange = (selected) => {
-        setState({
-            category: selected
-          });
+        console.log(selected);
+        setCategory(selected);
     }
-    /* 
-    const handleChange = (event) => {
-        
-        const target = event.target;
-        const name = target.name;
 
-
-        if(target.type === 'file'){
-            event.preventDefault()
-            alert(fileInput.current.files[0])
-            state.image = event.target.files[0];
-        } else{
-            event.preventDefault()
-            setState({
-                [name]: target.value
-            });
-        }
-        
-    }*/
     const handleSubmit = (event) => {
-        
+        console.log(category);
         let cats = category
-        setState(cats.map(e => e.value))
+        cats = cats.map(e => e.value)
         
-       
-        const formData = new FormData();
-            
         const jsondata = 
         {   
             "title": title,
-            "category": category,
+            "category": cats,
             "description": desc,
             "text": text,
         }
 
         
-        console.log(jsondata)
+        console.log(JSON.stringify(jsondata))
         
         
               
-        if(state.articleId != null){
+        if(props.article.articleId != null){
             
-            ArticleService.saveNewArticle(jsondata)
-                .then(res => {
-                if(res.status === 200){
-                    Modal(setIsOpen, "edit success")
-                }if(res.status === 415){
-                    Modal(setIsOpen, "")
-                }
-            });
+            let hasSucceeded = ArticleService.editArticle(jsondata)
+            if(hasSucceeded){
+                setStatus("edit success")
+                setIsOpen(true);
+                
+            }   
         }
 
         else{
-            let hasSucceeded = 
-            ArticleService.saveNewArticle(jsondata)
-                .then(res => {
-                    if(res.status === 200){
-                        setIsOpen(true);
-                    }});
+            let hasSucceeded = ArticleService.saveNewArticle(jsondata);
+            if(hasSucceeded){
+                setStatus("new success")
+                setIsOpen(true);
+                
+            }
+               
             
             //axios.post(connectionInfo + "article/new", formData, {headers})
             //    .then(response => alert(response.status));
@@ -134,7 +108,7 @@ const ArticleForm = (props) => {
                         }}
                         onChange={handleSelectChange}
                         allowSelectAll={true}
-                        value={state.category}
+                        value={category}
                     />
                 </div>
                         
@@ -152,7 +126,8 @@ const ArticleForm = (props) => {
                 
                 <button type='button' onClick={handleSubmit} className='formElement button'>Einreichen 
                 </button>
-            </form>    
+            </form>
+            {isOpen && <Modal setIsOpen={setIsOpen} event={status} />}    
         </div>
     )
     
