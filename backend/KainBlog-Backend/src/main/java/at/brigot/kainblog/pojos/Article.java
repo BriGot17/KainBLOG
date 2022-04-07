@@ -22,7 +22,5 @@ public class Article {
     private String description;//Preview vom Artikel
     @NonNull
     private String text;
-    private String picture;
-
 
 }

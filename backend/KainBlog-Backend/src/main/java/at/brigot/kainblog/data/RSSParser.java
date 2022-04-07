@@ -41,7 +41,6 @@ public class RSSParser {
         }
         item.setCategory(category);
         item.setGuid(article.getArticleId());
-        item.setPicture(article.getPicture());
         return item;
     }
 
@@ -60,13 +59,5 @@ public class RSSParser {
     }
 
 
-    public static void main(String[] args) {
-        List<Article> articles = new ArrayList<>();
-        List<String> category = new ArrayList<>();
-        category.add("Test");
-        articles.add(new Article("1","Test", new User("gotped17", "Peter Gottlieb", "ABCDE", Set.of(new Role("ADMIN")), "hehe"), category, "test2", "test3","PIC"));
-        RSSParser parser = new RSSParser();
-        System.out.println(parser.parseToXMLFile(articles));
 
-    }
 }

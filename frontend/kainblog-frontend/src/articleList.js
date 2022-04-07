@@ -16,7 +16,7 @@ function ArticleList(){
 
     const feed = new window.DOMParser().parseFromString(contents, "text/xml");
     const items = feed.querySelectorAll("item");
-
+    console.log(res)
     const feedItems = [...items].map((el) => ({
       link: el.querySelector("link").innerHTML,
       title: el.querySelector("title").innerHTML,
@@ -49,10 +49,7 @@ function ArticleList(){
         <Artikel desc="" />
         </span>
         
-      </div>
-
-
-      
+      </div>      
     </div>
     
   )

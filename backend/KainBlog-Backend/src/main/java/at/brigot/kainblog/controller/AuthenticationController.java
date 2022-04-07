@@ -1,6 +1,7 @@
 package at.brigot.kainblog.controller;
 
 import at.brigot.kainblog.config.TokenProvider;
+import at.brigot.kainblog.data.UserRepository;
 import at.brigot.kainblog.pojos.AuthToken;
 import at.brigot.kainblog.pojos.LoginUser;
 import at.brigot.kainblog.pojos.User;
@@ -13,6 +14,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +27,9 @@ public class AuthenticationController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     @Autowired
     private UserService userService;
@@ -56,6 +62,21 @@ public class AuthenticationController {
     public List<User> listUser(){
         return userService.findAll();
     }
+
+    @PostMapping("/token/check")
+    public String expirationCheck(@RequestHeader("Authorization") String token){
+        token = token.substring(7);
+        String ok = "ok";
+        String notok = "netok";
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+        UserDetails details = userDetailsService.loadUserByUsername(username);
+        if(jwtTokenUtil.validateToken(token, details)){
+            return ok;
+        }else{
+            return notok;
+        }
+    }
+
 
     @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'PUBLISHER')")
     @RequestMapping("/users/current")

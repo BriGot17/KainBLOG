@@ -1,0 +1,26 @@
+
+> kainblog-frontend@0.1.0 start
+> react-scripts start
+
+[34mℹ[39m [90m｢wds｣[39m: Project is running at http://172.20.10.2/
+[34mℹ[39m [90m｢wds｣[39m: webpack output is served from 
+[34mℹ[39m [90m｢wds｣[39m: Content not from webpack is served from /home/gotped/projects/brigot17/KainBLOG/frontend/kainblog-frontend/public
+[34mℹ[39m [90m｢wds｣[39m: 404s will fallback to /
+Starting the development server...
+
+Failed to compile.
+
+src/EditorForm.js
+  Line 34:37:  React Hook "useState" cannot be called in a class component. React Hooks must be called in a React function component or a custom React Hook function  react-hooks/rules-of-hooks
+  Line 88:27:  'setIsOpen' is not defined                                                                                                                             no-undef
+  Line 90:27:  'setIsOpen' is not defined                                                                                                                             no-undef
+  Line 98:27:  'setIsOpen' is not defined                                                                                                                             no-undef
+
+src/services/ArticleService.js
+  Line 11:12:  'checkAuthentication' is not defined  no-undef
+  Line 29:12:  'checkAuthentication' is not defined  no-undef
+
+src/services/AuthService.js
+  Line 49:22:  'jwt' is not defined  no-undef
+
+Search for the keywords to learn more about each error.

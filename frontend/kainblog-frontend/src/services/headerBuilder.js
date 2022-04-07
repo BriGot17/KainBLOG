@@ -1,18 +1,16 @@
 
 class HeaderBuilder {
 
-    buildEssentialHeaders(){
-        const csrfToken = document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+    buildArticleheader(){
         const user = JSON.parse(localStorage.getItem('user'));
-        if(csrfToken && user && user.token){
+        if(user.token){
             return {
                 'Authorization': `Bearer ${user.token}`,
-                'X-XSRF-TOKEN': csrfToken
+                'Content-Type': "application/json"
             }
-        }else{
-            return {};
         }
     }
+
 
     buildAuthHeader(){
         

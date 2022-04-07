@@ -1,12 +1,14 @@
 import axios from "axios";
 import { connectionInfo } from "../configs";
 import { buildEssentialHeaders, buildAuthHeader } from "./headerBuilder"
+import  jsonwebtoken from "jsonwebtoken";
+
 const API_URL = connectionInfo;
 class AuthService {
 
   login(username, password) {
     return axios
-      .post(API_URL + "signin", {
+      .post(API_URL + "token/generate-token", {
         username,
         password
       })
@@ -37,13 +39,21 @@ class AuthService {
           Authorization: `Bearer ${user.token}`
         }
       }
-    ).then(res => {
-      console.log(res.data)
-    })
+    )
   }
 
+  //True => Jwt still valid
+  //False => Jwt expired
   checkAuthentication(){
-    return buildAuthHeader != {} ? true : false;
+    let isExpired = false;
+    const token = localStorage.getItem('user').token;
+    let decodedToken=jsonwebtoken.decode(token, {complete: true});
+    let dateNow = new Date();
+    
+    if(decodedToken === null || decodedToken.exp < dateNow.getTime())
+      isExpired = true;
+
+    return !isExpired;
   }
 }
 export default new AuthService();

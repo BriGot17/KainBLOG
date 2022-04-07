@@ -2,11 +2,13 @@
 import React, { useState } from "react";
 import "./Login.css";
 import AuthService from "./services/AuthService";
+import Modal from './modal';
 
 function Login() {
 
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const errors = {
     user: "invalid username",
@@ -23,11 +25,16 @@ function Login() {
 
 
     let loginResponse = AuthService.login(loginuser, pass)
-
+    
     if (loginResponse != null) {
-      console.log(AuthService.getCurrentUser())
-      setIsSubmitted(true)
-    } 
+      loginResponse.then(res => {
+        if(res.status === 200){
+          setIsSubmitted(true)
+        }
+      })
+      
+    }
+    console.log(AuthService.checkAuthentication()) 
   };
 
   const renderErrorMessage = (name) =>
@@ -62,9 +69,9 @@ function Login() {
       <div>
         <br/><br/>
         <div>Sign In</div>
-        {//isSubmitted ? <div>User is successfully logged in</div> : AuthService.checkAuthentication() ? <div>User is successfully logged in</div> : renderForm
-          renderForm
-        }
+        
+        {isSubmitted ? <div>User is successfully logged in</div> : AuthService.checkAuthentication() ? <div>User is successfully logged in</div> : renderForm}
+        {isOpen && <Modal setIsOpen={setIsOpen} event="login success" />}
       </div>
     </div>
   );
