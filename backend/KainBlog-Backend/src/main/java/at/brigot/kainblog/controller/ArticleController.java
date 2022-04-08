@@ -33,7 +33,7 @@ public class ArticleController {
     private ArticleRepository articleRepo;
 
     @PreAuthorize("hasAnyRole('ADMIN', 'PUBLISHER')")
-    @PatchMapping(path = "/edit", consumes = MediaType.MULTIPART_FORM_DATA_VALUE )
+    @PatchMapping(path = "/edit")
     public ResponseEntity<Article> editArticle(@RequestBody Article article){
         articleRepo.deleteArticleByArticleId(article.getArticleId());
 
@@ -49,18 +49,18 @@ public class ArticleController {
         return ResponseEntity.of(Optional.of(articleRepo.findByPublisher(user)));
     }
 
+    @RequestMapping(path = "/view/{guid}", method = RequestMethod.GET)
+    public ResponseEntity<Article> getArticle(@PathVariable("guid") String guid){
+        System.out.println("I bin ein Debug");
+        return ResponseEntity.of(Optional.of(articleRepo.findArticleByArticleId(guid)));
+    }
+
     @PreAuthorize("hasAnyRole('ADMIN', 'PUBLISHER')")
     @PostMapping(path = "/new")
     public ResponseEntity<Article> createNewArticle(@RequestBody Article article){
         article.setArticleId(UUID.randomUUID().toString());
         articleRepo.save(article);
         return ResponseEntity.of(Optional.of(article));
-    }
-
-    @GetMapping(path = "/{guid}")
-    public ResponseEntity<Article> getArticle(@PathVariable("guid") String guid){
-        System.out.println("I bin ein Debug");
-        return ResponseEntity.of(Optional.of(articleRepo.findArticleByArticleId(guid)));
     }
 
 }

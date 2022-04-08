@@ -6,15 +6,10 @@ import Modal from './modal';
 
 function Login() {
 
-  
+
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [errorMessages, setErrorMessages] = useState({});
-  
-  const errors = {
-    user: "invalid username",
-    pass: "invalid password"
-  };
+  const [status, setStatus] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -24,56 +19,54 @@ function Login() {
     let loginuser = loginform.user.value;
     let pass = loginform.pass.value;
 
-
     let loginResponse = AuthService.login(loginuser, pass)
-    
-    if (loginResponse != null) {
-      loginResponse.then(res => {
-        if(res.status === 200){
-          setIsSubmitted(true)
+
+    loginResponse
+      .then(response => {
+        const data = response.data
+
+        if (response.data.token) {
+
+          localStorage.setItem("user", JSON.stringify(data));
         }
-      })
-      
-    }
-  
+
+        if (response.status === 200) {
+          setIsOpen(true)
+          setIsSubmitted(true)
+          setStatus("login success")
+        }
+      });
   };
 
-  const renderErrorMessage = (name) =>
-    name === errorMessages.name && (
-      <div class="error">{errorMessages.message}</div>
-    );
-
   const renderForm = (
-    
+
     <div>
-        <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <div>
-            {renderErrorMessage("user")}
-            <input type="text" placeholder="username" name="user" required/>
+          <input type="text" placeholder="username" name="user" required />
         </div>
-        <br/>
+        <br />
         <div>
-            {renderErrorMessage("pass")}
-            <input type="password" placeholder="password" name="pass" required/>
+          <input type="password" placeholder="password" name="pass" required />
         </div>
-        <br/>
+        <br />
         <div>
-            <button type="submit" className="button">Login</button>
+          <button type="submit" className="button">Login</button>
         </div>
-        </form>
+      </form>
     </div>
-    
+
   );
 
   return (
     <div>
       <div>
-        <br/><br/>
+        <br /><br />
         <div>Sign In</div>
         
         {isSubmitted ? <div>User is successfully logged in</div> : AuthService.checkAuthentication() ? <div>User is successfully logged in</div> : renderForm}
-        {isOpen && <Modal setIsOpen={setIsOpen} event="login success" />}
-        
+        {isOpen && <Modal setIsOpen={setIsOpen} status={status} />}
+
       </div>
     </div>
   );

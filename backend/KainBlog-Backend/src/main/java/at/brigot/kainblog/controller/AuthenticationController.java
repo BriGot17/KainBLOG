@@ -1,11 +1,9 @@
 package at.brigot.kainblog.controller;
 
 import at.brigot.kainblog.config.TokenProvider;
+import at.brigot.kainblog.data.ArticleRepository;
 import at.brigot.kainblog.data.UserRepository;
-import at.brigot.kainblog.pojos.AuthToken;
-import at.brigot.kainblog.pojos.JwtResponse;
-import at.brigot.kainblog.pojos.LoginUser;
-import at.brigot.kainblog.pojos.User;
+import at.brigot.kainblog.pojos.*;
 import at.brigot.kainblog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +19,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping()
+@RequestMapping
 public class AuthenticationController {
 
     @Autowired
@@ -87,7 +86,8 @@ public class AuthenticationController {
             return notok;
         }
     }
-
+    @Autowired
+    private ArticleRepository articleRepo;
 
     @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'PUBLISHER')")
     @RequestMapping("/users/current")

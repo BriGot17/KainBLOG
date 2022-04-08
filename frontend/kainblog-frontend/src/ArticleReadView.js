@@ -8,8 +8,16 @@ import PublicService from './services/PublicService';
 function ArticleView() {
     const params = useParams();
     const [article, setArticle] = useState({text: ''});
+    let r
+    try{
+        r = JSON.parse(localStorage.getItem('user')).roles;
+    }catch{
+        r = []
+    }
+    const roles = r
     
-    
+    let showEdit = roles.includes('ADMIN') ? true : roles.includes('PUBLISHER') ? true: false;
+    //console.log(showEdit);
     const articleData = async () => {
         await PublicService.getOneArticle(params.guid).then(res => {
             setArticle(res.data)
@@ -26,9 +34,10 @@ function ArticleView() {
             <h1>{article.title}</h1>
             <p>{article.description}</p>
             <div dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(article.text)}} className='articleView center'></div>
+            {showEdit ?
             <Link to={`/article/edit/${params.guid}`}>
                 <button >Edit</button>
-            </Link>
+            </Link>: <></>}
             
         </div>
         

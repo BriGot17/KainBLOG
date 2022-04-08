@@ -33,7 +33,7 @@ return (
           <Route path="/users/:username" element={<Profile />}/>
           <Route path="/article/new" element={<EditorView />}/>
           <Route path="/article/edit/:guid" element={<EditorView />} />
-          <Route path={"/article/:guid"} element={<ArticleView />}/>   
+          <Route path={"/article/view/:guid"} element={<ArticleView />}/>   
           <Route path="/login" element={Login()}/>
         </Routes>
       

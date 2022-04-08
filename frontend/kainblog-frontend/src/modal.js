@@ -1,11 +1,13 @@
 import React from "react";
-import styles from "./modal.css";
+import "./modal.css";
 import { RiCloseLine } from "react-icons/ri";
 
-const Modal = ({ setIsOpen, event }) => {
+const Modal = ( props) => {
     let message = "";
+
     let error = "";
-    switch (event) {
+    switch (props.status) {
+      
         case "not authenticated":
             error = "Your session has ended";
             break;
@@ -26,31 +28,32 @@ const Modal = ({ setIsOpen, event }) => {
             break;
         case "edit error":
             error = "Fehler beim Bearbeiten";
+            break;
+        default:
+            message = "Das ist ein Modal für etwaige Nachrichten, die der Nutzer bekommen soll";
+            break;
     }
 
   return (
     <>
-      <div className={styles.darkBG} onClick={() => setIsOpen(false)} />
-      <div className={styles.centered}>
-        <div className={styles.modal}>
-          <div className={styles.modalHeader}>
-            <h5 className={styles.heading}>
+      <div className="darkBG" onClick={() => props.setIsOpen(false)} />
+      <div className="centered">
+        <div className="modal">
+          <div className="modalHeader">
+            <h5 className="heading">
                 {message !== "" ? "Nachricht" : error !== "" ? "Fehler" : ""}</h5>
           </div>
-          <button className={styles.closeBtn} onClick={() => setIsOpen(false)}>
+          <button className="closeBtn" onClick={() => props.setIsOpen(false)}>
             <RiCloseLine style={{ marginBottom: "-3px" }} />
           </button>
-          <div className={styles.modalContent}>
-          {message !== "" ? error : error !== "" ? error : ""}
+          <div className="modalContent">
+          {message !== "" ? message : error !== "" ? error : ""}
           </div>
-          <div className={styles.modalActions}>
-            <div className={styles.actionsContainer}>
-              <button className={styles.deleteBtn} onClick={() => setIsOpen(false)}>
-                Delete
-              </button>
+          <div className="modalActions">
+            <div className="actionsContainer">
               <button
-                className={styles.cancelBtn}
-                onClick={() => setIsOpen(false)}
+                className="cancelBtn"
+                onClick={() => props.setIsOpen(false)}
               >
                 Cancel
               </button>

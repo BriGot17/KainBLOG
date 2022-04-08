@@ -9,7 +9,7 @@ import './App.css'
 import {default as ReactSelect, components} from "react-select"
 import ArticleService from "./services/ArticleService"
 import Modal from './modal';
-
+import AuthService from './services/AuthService'
 
 const Option = (props) => {
     return (
@@ -37,7 +37,7 @@ const ArticleForm = (props) => {
 
     
     const handleSelectChange = (selected) => {
-        console.log(selected);
+        //console.log(AuthService.checkAuthentication());
         setCategory(selected);
     }
 

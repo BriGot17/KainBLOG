@@ -1,23 +1,24 @@
 import './App.css'
 import './artikel.css'
 import {Link} from 'react-router-dom';
-
+import AuthService from "./services/AuthService";
 
 
 function ArticleNav(props) {
-/*
+        
         const roles = () => {
             let r = ["NULL"];
             try{
                 console.log("here");
-                r = localStorage.getItem("user").username;
+                r = JSON.parse(localStorage.getItem("user")).roles;
             }catch{
                 console.log("catched");
-                r = null;
+                r = [];
             }
             console.log(r);
             return r;
         };
+        let showLink = roles().includes('ADMIN') ? true : roles().includes('PUBLISHER') ? true: false;
         const token = () =>{
             let t;
             try{
@@ -26,11 +27,11 @@ function ArticleNav(props) {
                 t = "";
             }
             return t;
-
         }
+        let showProfile = token() !== "" ? true : false;
        
         console.log(roles()) 
-*/
+
         return (
             <div className='sideNavContainer'>
                 <div className='buttonContainer'>
@@ -40,22 +41,26 @@ function ArticleNav(props) {
                             </button>
                         </Link>
 
-                        <Link className="navlink" to={'article/new'}>
+                        {
+                            showLink ? <Link className="navlink" to={'article/new'}>
                             <button className='button navButton'>
                                 Add new Article 
                             </button>
-                        </Link>
+                        </Link> : <></>
+                        }
                         <Link className='navLink' to={'login'}>
                             <button className='button navButton'>
                                 Login
                             </button>
                         </Link>
-
-                        <Link className="navLink" to={'users/gotped17'}>
+                        {
+                            showProfile ? <Link className="navLink" to={'users/gotped17'}>
                             <button className='button navButton'>
                                 Profil
                             </button>
-                        </Link>
+                        </Link> :<></>
+                        }
+                        
                 </div>
             </div>
         )

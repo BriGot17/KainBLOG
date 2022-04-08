@@ -14,7 +14,7 @@ class ArticleService{
                     Authorization : `Bearer ${user.token}`,
                     'Content-Type' : "application/json"
                 }
-                }).then(data => {
+                }).then(data =>  {
                     //console.log(data);
                     
                     if(data.status === 200){
@@ -35,7 +35,7 @@ class ArticleService{
         
         if(AuthService.checkAuthentication){
                 await axios.patch(API_URL + "article/edit", JSON.stringify(json), {
-                headers: {
+                    headers: {
                     Authorization : `Bearer ${user.token}`,
                     'Content-Type' : "application/json"
                 }
